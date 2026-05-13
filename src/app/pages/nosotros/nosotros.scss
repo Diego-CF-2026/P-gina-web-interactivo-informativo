@@ -1,0 +1,71 @@
+.nosotros-header {
+  margin-bottom: 4rem;
+}
+
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* Crea 4 columnas exactas */
+  gap: 2rem;
+  width: 100%;
+}
+
+.team-card {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  cursor: pointer;
+  
+  /* Efecto Hover para toda la tarjeta */
+  &:hover {
+    .avatar-placeholder {
+      border-color: #ff3300;
+      transform: translateY(-10px);
+      box-shadow: 0 10px 30px rgba(255, 51, 0, 0.2);
+    }
+    .name {
+      color: #ff3300;
+    }
+  }
+}
+
+.avatar-placeholder {
+  width: 100%;
+  aspect-ratio: 3/4; /* Proporción elegante para retratos */
+  background-color: rgba(34, 34, 34, 0.6);
+  border: 1px solid #333;
+  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.4s ease;
+
+  .number {
+    font-size: 5rem;
+    font-weight: 800;
+    color: rgba(255, 255, 255, 0.05); /* Número gigante casi invisible al fondo */
+  }
+}
+
+.info {
+  .name {
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: #ffffff;
+    margin-bottom: 0.3rem;
+    text-transform: uppercase;
+    transition: color 0.3s ease;
+  }
+  
+  .role {
+    font-size: 0.9rem;
+    color: #a0a0a0;
+    font-weight: 400;
+  }
+}
+
+/* Responsividad: Si lo ven en pantallas más chicas, se acomoda en 2 filas de 2 */
+@media (max-width: 1024px) {
+  .team-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
