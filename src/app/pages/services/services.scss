@@ -1,81 +1,142 @@
-.services-header {
-  margin-bottom: 4rem;
+/* =========================================
+   VARIABLES Y CONFIGURACIÓN BASE
+   ========================================= */
+$white: #ffffff;
+$gray: rgba(255, 255, 255, 0.6);
+$border-light: rgba(255, 255, 255, 0.15);
+$glow: 0 0 20px rgba(255, 255, 255, 0.5);
+$transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+
+/* ANIMACIÓN DE APARICIÓN */
+@keyframes pageReveal {
+  0% { opacity: 0; filter: blur(5px); transform: scale(0.98); }
+  100% { opacity: 1; filter: blur(0); transform: scale(1); }
 }
 
+/* RESETEO DEL HOST Y BODY */
+:host { display: block; width: 100%; min-height: 100vh; overflow-x: hidden; background: transparent !important; }
+html, body { margin: 0; padding: 0; width: 100%; min-height: 100vh; background-color: #000 !important; overflow-x: hidden !important; }
+
+/* FONDOS BLINDADOS (100vw para evitar cortes oscuros en móvil) */
+/* Recuerda que el video ahora vive en app.component.html, así que esto solo afecta al overlay si lo dejaste, o previene errores */
+.video-background, .overlay { position: fixed; top: 0; left: 0; width: 100vw !important; height: 100vh !important; z-index: 1; }
+.video-background { object-fit: cover; opacity: 0.3; filter: grayscale(100%); }
+.overlay { background: radial-gradient(circle at center, rgba(15,15,15,0.4) 0%, rgba(5,5,5,0.95) 100%); }
+
+/* =========================================
+   CONTENEDOR PRINCIPAL
+   ========================================= */
+.transmedia-container { 
+  position: relative; 
+  width: 100%; 
+  max-width: 1400px; 
+  margin: 0; 
+  min-height: 100vh;
+  padding: 3rem 5rem; 
+  display: flex; 
+  flex-direction: column; 
+  box-sizing: border-box; 
+  z-index: 2; 
+  background: transparent !important; 
+  animation: pageReveal 1.2s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+}
+
+/* =========================================
+   CABECERA PC
+   ========================================= */
+.header { display: flex; justify-content: space-between; align-items: center; width: 100%; margin-bottom: 4rem; padding-bottom: 1.5rem; border-bottom: 1px solid $border-light; position: relative; z-index: 100; }
+.logo-pill { font-family: 'Cormorant Garamond', serif; letter-spacing: 3px; color: $white; font-size: 1.2rem; text-transform: uppercase; }
+.nav-pill { display: flex; gap: 2.5rem; pointer-events: auto; }
+.nav-pill a { color: $gray; text-decoration: none; font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; transition: $transition; position: relative; cursor: pointer; }
+.nav-pill a::before { content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); width: 1px; height: 16px; margin-top: 8px; background-color: transparent; transition: $transition; }
+.nav-pill a::after { content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); width: 5px; height: 5px; border-radius: 50%; margin-top: 24px; background-color: transparent; transition: $transition; }
+.nav-pill a:hover, .nav-pill a.active-link { color: $white; text-shadow: 0 0 10px rgba(255,255,255,0.5); }
+.nav-pill a:hover::before, .nav-pill a.active-link::before, .nav-pill a:hover::after, .nav-pill a.active-link::after { background-color: $white; }
+.nav-pill a.active-link::after { box-shadow: $glow; }
+
+/* =========================================
+   HERO PC (Alineado izquierda)
+   ========================================= */
+.hero { display: flex; flex-direction: column; align-items: flex-start; width: 100%; margin-top: 2rem; background: transparent !important; }
+.title { font-family: 'Cormorant Garamond', serif; font-size: 5rem; font-weight: 300; line-height: 1.1; color: $white; margin: 0 0 1.5rem 0; text-transform: uppercase; letter-spacing: 2px; }
+.description { color: $gray; max-width: 600px; line-height: 1.8; margin: 0; font-size: 1.05rem; }
+
+/* =========================================
+   GRILLA DE SERVICIOS (2x2)
+   ========================================= */
 .services-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* 2 columnas exactas */
-  gap: 2rem;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2.5rem;
+  margin-top: 5rem;
   width: 100%;
 }
 
 .service-card {
-  background-color: rgba(34, 34, 34, 0.4);
-  border: 1px solid #333;
-  border-radius: 20px;
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(4px);
+  border: 1px solid $border-light;
+  border-radius: 16px;
   padding: 2.5rem;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  transition: all 0.4s ease;
-  position: relative;
-  overflow: hidden;
+  transition: $transition;
+  cursor: pointer;
 
-  /* Efecto premium: línea naranja invisible que aparece en hover */
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 4px;
-    background-color: #ff3300;
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.4s ease;
-  }
-
-  /* Animaciones al pasar el cursor */
   &:hover {
-    background-color: rgba(34, 34, 34, 0.8);
-    border-color: #555;
-    transform: translateY(-5px);
-
-    &::before {
-      transform: scaleX(1); /* La línea naranja crece de izquierda a derecha */
-    }
-
-    .service-icon {
-      color: #ff3300;
-      transform: translateX(10px); /* El número se desplaza un poco */
-    }
+    border-color: $white;
+    transform: translateY(-8px);
+    box-shadow: $glow;
+    background: rgba(0, 0, 0, 0.6);
   }
 }
 
-.service-icon {
-  font-size: 2.5rem;
-  font-weight: 800;
-  color: #555;
-  margin-bottom: 1rem;
-  transition: all 0.4s ease;
-}
+.icon { font-size: 2rem; margin-bottom: 1.5rem; }
+.service-title { color: $white; font-size: 1.5rem; font-weight: 700; margin: 0 0 1rem 0; letter-spacing: -0.5px; }
+.service-desc { color: $gray; font-size: 0.95rem; line-height: 1.6; margin: 0; }
 
-.service-name {
-  font-size: 1.5rem;
-  font-weight: 800;
-  color: #ffffff;
-  letter-spacing: -0.5px;
-}
+/* CLASES DE VISIBILIDAD */
+.mobile-only { display: none !important; }
+.desktop-only { display: flex !important; }
 
-.service-desc {
-  font-size: 1rem;
-  color: #a0a0a0;
-  line-height: 1.6;
-}
-
-/* Responsividad: En pantallas más pequeñas, baja a 1 sola columna */
+/* =========================================
+   VISTA MÓVIL (CORRECCIÓN DE TIPOGRAFÍA)
+   ========================================= */
 @media (max-width: 768px) {
+  .desktop-only { display: none !important; }
+  .mobile-only { display: flex !important; }
+  
+  .transmedia-container { padding: 2rem 1.5rem !important; width: 100% !important; background: transparent !important; }
+
+  /* CABECERA MÓVIL */
+  .header { flex-direction: column !important; align-items: center !important; gap: 1.5rem !important; width: 100% !important; margin-bottom: 3.5rem !important; border-bottom: none !important; padding-bottom: 0 !important; }
+  .logo-pill { text-align: center !important; }
+  .nav-pill { justify-content: center !important; gap: 1.5rem !important; flex-wrap: wrap !important; }
+  .nav-pill a { font-size: 0.75rem !important; }
+  .nav-pill a::before, .nav-pill a::after { display: none !important; } 
+
+  /* HERO MÓVIL */
+  .hero { align-items: center !important; text-align: center !important; gap: 1rem !important; }
+  
+  /* AQUÍ ESTÁ EL AJUSTE PARA "ESTRATEGIA TRANSMEDIA" */
+  .title { 
+    font-size: clamp(2.2rem, 11vw, 3.2rem) !important; /* Tipografía fluida */
+    width: 100% !important; 
+    line-height: 1.1 !important; 
+    text-align: center !important; 
+    word-break: break-word !important; /* Evita que las palabras largas se salgan de la pantalla */
+  }
+  
+  .description { text-align: center !important; font-size: 0.95rem !important; }
+
+  /* GRILLA A 1 COLUMNA EN MÓVIL */
   .services-grid {
     grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin-top: 4rem;
+  }
+
+  .service-card {
+    padding: 2rem;
   }
 }

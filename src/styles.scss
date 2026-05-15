@@ -1,47 +1,39 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Inter:wght@300;400&display=swap');
+/* VARIABLES GLOBALES */
+$border-light: rgba(255, 255, 255, 0.15);
 
-body {
-  background-color: transparent;
-  color: #e5e5e5;
-  font-family: 'Inter', sans-serif;
-  font-weight: 300;
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100vh;
+  background-color: #000;
   overflow-x: hidden;
 }
 
-.page-container {
-  padding-top: 2rem;
-  animation: ghostFadeIn 1.5s ease-out forwards;
-  opacity: 0;
+/* VIDEO PERSISTENTE Y BLINDADO */
+.video-background, .overlay { 
+  position: fixed; 
+  top: 0; 
+  left: 0; 
+  width: 100vw !important; 
+  height: 100vh !important; 
+  z-index: 1; /* Detrás de todo */
+  pointer-events: none; /* Para que no interfiera con los clics */
 }
 
-.page-title {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 5rem;
-  font-weight: 300;
-  color: #ffffff;
-  margin-bottom: 1.5rem;
-  line-height: 1.1;
-  letter-spacing: 2px;
-  text-transform: uppercase;
+.video-background {
+  object-fit: cover;
+  opacity: 0.3;
+  filter: grayscale(100%);
 }
 
-/* Permitimos poner cursivas elegantes en los títulos */
-.page-title i {
-  font-style: italic;
-  color: rgba(255, 255, 255, 0.5);
+.overlay {
+  background: radial-gradient(circle at center, rgba(15,15,15,0.4) 0%, rgba(5,5,5,0.95) 100%);
+  z-index: 2; /* Encima del video, debajo del contenido */
 }
 
-.page-text {
-  font-size: 1.1rem;
-  color: rgba(255, 255, 255, 0.6);
-  max-width: 550px;
-  line-height: 1.8;
-  margin-bottom: 4rem;
-  letter-spacing: 0.5px;
-}
-
-/* Animación estilo aparición documental */
-@keyframes ghostFadeIn {
-  from { opacity: 0; filter: blur(10px); transform: scale(0.98); }
-  to { opacity: 1; filter: blur(0); transform: scale(1); }
+/* ELIMINAR EL CUADRO AZUL DE TOQUE EN CELULARES */
+* {
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
 }

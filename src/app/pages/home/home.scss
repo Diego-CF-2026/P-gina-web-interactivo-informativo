@@ -1,5 +1,5 @@
 /* =========================================
-   VARIABLES Y RESET
+   VARIABLES Y CONFIGURACIÓN BASE
    ========================================= */
 $white: #ffffff;
 $gray: rgba(255, 255, 255, 0.6);
@@ -7,148 +7,216 @@ $border-light: rgba(255, 255, 255, 0.15);
 $glow: 0 0 20px rgba(255, 255, 255, 0.5);
 $transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
 
+/* ANIMACIÓN DE APARICIÓN */
+@keyframes pageReveal {
+  0% { opacity: 0; filter: blur(5px); transform: scale(0.98); }
+  100% { opacity: 1; filter: blur(0); transform: scale(1); }
+}
+
+/* RESETEO DEL HOST Y BODY */
+:host { display: block; width: 100%; min-height: 100vh; overflow-x: hidden; background: transparent !important; }
+html, body { margin: 0; padding: 0; width: 100%; min-height: 100vh; background-color: #000 !important; overflow-x: hidden !important; }
+
+/* FONDOS BLINDADOS (100vw) */
+.video-background, .overlay { position: fixed; top: 0; left: 0; width: 100vw !important; height: 100vh !important; z-index: 1; }
+.video-background { object-fit: cover; opacity: 0.3; filter: grayscale(100%); }
+.overlay { background: radial-gradient(circle at center, rgba(15,15,15,0.4) 0%, rgba(5,5,5,0.95) 100%); }
+
+/* =========================================
+   CONTENEDOR PRINCIPAL
+   ========================================= */
 .transmedia-container { 
+  position: relative; 
+  width: 100%; 
+  max-width: 1400px; /* Alineación izquierda respetando márgenes */
+  margin: 0; 
+  min-height: 100vh;
   padding: 3rem 5rem; 
-  min-height: 100vh; 
   display: flex; 
   flex-direction: column; 
-  width: 100%;
-  box-sizing: border-box;
+  box-sizing: border-box; 
+  z-index: 2; 
+  background: transparent !important; 
+  animation: pageReveal 1.2s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+}
+
+/* VISIBILIDAD */
+.mobile-only { display: none !important; }
+.desktop-only { display: flex !important; }
+
+/* =========================================
+   CABECERA PC
+   ========================================= */
+.header { display: flex; justify-content: space-between; align-items: center; width: 100%; margin-bottom: 4rem; padding-bottom: 1.5rem; border-bottom: 1px solid $border-light; position: relative; z-index: 100; }
+.logo-pill { font-family: 'Cormorant Garamond', serif; letter-spacing: 3px; color: $white; font-size: 1.2rem; text-transform: uppercase; }
+.nav-pill { display: flex; gap: 2.5rem; pointer-events: auto; }
+.nav-pill a { color: $gray; text-decoration: none; font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; transition: $transition; position: relative; cursor: pointer; }
+.nav-pill a::before { content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); width: 1px; height: 16px; margin-top: 8px; background-color: transparent; transition: $transition; }
+.nav-pill a::after { content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); width: 5px; height: 5px; border-radius: 50%; margin-top: 24px; background-color: transparent; transition: $transition; }
+.nav-pill a:hover, .nav-pill a.active-link { color: $white; text-shadow: 0 0 10px rgba(255,255,255,0.5); }
+.nav-pill a:hover::before, .nav-pill a.active-link::before, .nav-pill a:hover::after, .nav-pill a.active-link::after { background-color: $white; }
+.nav-pill a.active-link::after { box-shadow: $glow; }
+
+/* =========================================
+   HERO PC
+   ========================================= */
+.hero { display: flex; justify-content: space-between; align-items: flex-end; width: 100%; margin-top: 2rem; background: transparent !important; }
+.title { font-family: 'Cormorant Garamond', serif; font-size: 6.5rem; font-weight: 300; line-height: 0.9; color: $white; margin: 0; text-transform: uppercase; }
+.hero-description p { color: $gray; max-width: 350px; line-height: 1.8; border-left: 1px solid $border-light; padding-left: 1.5rem; margin: 0; font-size: 1rem; }
+
+/* =========================================
+   GALERÍA DE IMÁGENES PC
+   ========================================= */
+.gallery { display: flex; justify-content: space-between; gap: 1.5rem; margin-top: 5rem; width: 100%; height: 280px; }
+.card { 
+  flex: 1; 
+  border: 2px solid transparent; 
+  overflow: hidden; 
+  position: relative; 
+  cursor: pointer; 
+  transition: $transition; 
+  background-color: #000;
+}
+.card img { 
+  width: 100%; 
+  height: 100%; 
+  object-fit: cover; 
+  opacity: 0.3; 
+  filter: grayscale(100%); 
+  transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), filter 0.6s ease, opacity 0.6s ease;
 }
 
 /* =========================================
-   ESTILOS ESCRITORIO (SE MANTIENEN)
+   MENÚ TIMELINE PC
    ========================================= */
-.header { display: flex; justify-content: space-between; align-items: center; width: 100%; margin-bottom: 4rem; }
-.logo-pill { font-family: 'Cormorant Garamond', serif; letter-spacing: 3px; color: $white; font-size: 1.2rem; text-transform: uppercase; }
-.nav-pill { display: flex; gap: 2.5rem; }
-.nav-pill a { color: $gray; text-decoration: none; font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; transition: $transition; }
-
-.hero { display: flex; justify-content: space-between; align-items: flex-end; width: 100%; }
-.title { font-family: 'Cormorant Garamond', serif; font-size: 6.5rem; font-weight: 300; line-height: 0.9; color: $white; margin: 0; }
-.hero-description p { color: $gray; max-width: 350px; line-height: 1.8; border-left: 1px solid $border-light; padding-left: 1.5rem; }
-
-.gallery { display: flex; gap: 1.5rem; height: 250px; margin-top: 5rem; }
-.card { flex: 1; border: 1px solid $border-light; overflow: hidden; transition: $transition; }
-.card img { width: 100%; height: 100%; object-fit: cover; opacity: 0.2; filter: grayscale(100%); transition: $transition; }
-.card:hover { border-color: $white; transform: translateY(-10px); }
-.card:hover img { opacity: 1; filter: grayscale(0%); }
-
-.footer-menu { display: flex; justify-content: space-around; border-top: 1px solid $border-light; margin-top: 5rem; }
-.menu-item { display: flex; flex-direction: column; align-items: center; gap: 1rem; padding-top: 3rem; position: relative; }
+.timeline-menu { 
+  position: relative; 
+  display: flex; 
+  justify-content: space-around; 
+  margin-top: 3rem; 
+  width: 100%; 
+  padding-top: 1.5rem;
+}
+.timeline-line { 
+  position: absolute; 
+  top: 0; 
+  left: 0; 
+  width: 100%; 
+  height: 1px; 
+  background: $border-light; 
+  z-index: 0; 
+}
+.menu-item { 
+  display: flex; 
+  flex-direction: column; 
+  align-items: center; 
+  position: relative; 
+  z-index: 1; 
+  cursor: pointer; 
+}
+.tick { 
+  width: 1px; 
+  height: 25px; 
+  background: $border-light; 
+  margin-top: -1.5rem; 
+  margin-bottom: 0.5rem;
+  transition: $transition; 
+}
+.number { 
+  font-family: 'Cormorant Garamond', serif; 
+  font-size: 1.2rem; 
+  color: $gray; 
+  border: 1px solid $border-light; 
+  border-radius: 50%; 
+  width: 45px; 
+  height: 45px; 
+  display: flex; justify-content: center; align-items: center; 
+  background: transparent; 
+  transition: $transition; 
+  margin-bottom: 1rem;
+}
+.label { 
+  font-size: 0.7rem; 
+  color: $gray; 
+  letter-spacing: 2px; 
+  text-transform: uppercase; 
+  transition: $transition; 
+}
 
 /* =========================================
-   ESTILOS MÓVIL (ORDEN CRÍTICO REFORZADO)
+   INTERACCIÓN BIDIRECCIONAL (BLANCO PREMIUM)
    ========================================= */
-.mobile-only { display: none; }
-.desktop-only { display: flex; }
+/* Hover sobre Menú -> Afecta a Card */
+.transmedia-container:has(.menu-1:hover) .card-1,
+.transmedia-container:has(.menu-2:hover) .card-2,
+.transmedia-container:has(.menu-3:hover) .card-3,
+.transmedia-container:has(.menu-4:hover) .card-4,
+.card:hover { 
+  border-color: $white; transform: translateY(-10px); box-shadow: $glow; 
+}
+.transmedia-container:has(.menu-1:hover) .card-1 img,
+.transmedia-container:has(.menu-2:hover) .card-2 img,
+.transmedia-container:has(.menu-3:hover) .card-3 img,
+.transmedia-container:has(.menu-4:hover) .card-4 img,
+.card:hover img { 
+  opacity: 1; filter: grayscale(0%); transform: scale(1.05); 
+}
 
+/* Hover sobre Card -> Afecta a Menú */
+.transmedia-container:has(.card-1:hover) .menu-1 .number,
+.transmedia-container:has(.card-2:hover) .menu-2 .number,
+.transmedia-container:has(.card-3:hover) .menu-3 .number,
+.transmedia-container:has(.card-4:hover) .menu-4 .number,
+.menu-item:hover .number { 
+  border-color: $white; color: $white; box-shadow: $glow; background: rgba(255,255,255,0.1);
+}
+.transmedia-container:has(.card-1:hover) .menu-1 .tick,
+.transmedia-container:has(.card-2:hover) .menu-2 .tick,
+.transmedia-container:has(.card-3:hover) .menu-3 .tick,
+.transmedia-container:has(.card-4:hover) .menu-4 .tick,
+.menu-item:hover .tick { 
+  background: $white; box-shadow: $glow;
+}
+.transmedia-container:has(.card-1:hover) .menu-1 .label,
+.transmedia-container:has(.card-2:hover) .menu-2 .label,
+.transmedia-container:has(.card-3:hover) .menu-3 .label,
+.transmedia-container:has(.card-4:hover) .menu-4 .label,
+.menu-item:hover .label { 
+  color: $white; letter-spacing: 3px;
+}
+
+
+/* =========================================
+   VISTA MÓVIL (BLINDADA SIN CUADROS NEGROS)
+   ========================================= */
 @media (max-width: 768px) {
+  
   .desktop-only { display: none !important; }
   .mobile-only { display: flex !important; }
 
-  /* 1. EL ENCABEZADO (LOGO ARRIBA) */
-  .header { 
-    display: flex !important;
-    flex-direction: column !important; /* Fuerza el orden vertical */
-    align-items: flex-start !important;
-    justify-content: flex-start !important;
-    width: 100% !important;
-    margin-bottom: 2rem !important;
-    position: relative !important;
-    float: none !important;
-  }
+  .transmedia-container { padding: 2rem 1.5rem !important; width: 100% !important; max-width: 100% !important; background: transparent !important; }
 
-  .logo-pill {
-    display: block !important;
-    width: 100% !important;
-    margin-bottom: 1.5rem !important; /* Espacio para el menú de abajo */
-    font-size: 1.3rem !important;
-    text-align: left !important;
-  }
+  .header { flex-direction: column !important; align-items: center !important; gap: 1.5rem !important; width: 100% !important; margin-bottom: 3.5rem !important; border-bottom: none !important; padding-bottom: 0 !important; background: transparent !important; }
+  .logo-pill { width: 100% !important; font-size: 1.3rem !important; text-align: center !important; }
+  .nav-pill { width: 100% !important; display: flex !important; justify-content: center !important; gap: 1.5rem !important; flex-wrap: wrap !important; }
+  .nav-pill a { font-size: 0.75rem !important; color: $gray !important; }
+  .nav-pill a::before, .nav-pill a::after { display: none !important; } 
 
-  /* 2. LAS VISTAS (BAJO EL LOGO) */
-  .nav-pill { 
-    display: flex !important;
-    flex-direction: row !important; /* Los links en fila */
-    flex-wrap: wrap !important;
-    width: 100% !important;
-    justify-content: flex-start !important; 
-    gap: 1rem !important; 
-    margin-left: 0 !important;
-  }
+  .hero { flex-direction: column !important; align-items: center !important; text-align: center !important; width: 100% !important; gap: 2rem !important; background: transparent !important; }
+  .hero-content, .hero-description { width: 100% !important; background: transparent !important; } 
+  .title { font-size: 3.5rem !important; width: 100% !important; line-height: 1.1 !important; text-align: center !important; }
+  .hero-description p { text-align: center !important; margin: 0 auto !important; border-left: none !important; border-top: 1px solid $border-light !important; padding: 1.5rem 0 0 0 !important; max-width: 100% !important; }
 
-  .nav-pill a { 
-    font-size: 0.7rem !important; 
-    color: $gray !important;
-    white-space: nowrap;
-    padding: 5px 0;
-  }
+  .mobile-list { flex-direction: column !important; gap: 1.5rem !important; margin-top: 4rem !important; width: 100% !important; background: transparent !important; }
+  .list-item { display: flex !important; align-items: center; gap: 1.5rem; padding: 1rem; border: 1px solid $border-light; transition: $transition; background: rgba(255,255,255,0.02); width: 100%; box-sizing: border-box; cursor: pointer; }
+  .thumb { width: 85px; height: 85px; border: 1px solid $border-light; overflow: hidden; flex-shrink: 0; }
+  .thumb img { width: 100%; height: 100%; object-fit: cover; opacity: 0.2; filter: grayscale(100%); transition: $transition; }
+  .info { display: flex; flex-direction: column; gap: 0.5rem; }
+  .info .number { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; color: $gray; border: 1px solid $border-light; border-radius: 50%; width: 40px; height: 40px; display: flex; justify-content: center; align-items: center; transition: $transition; }
+  .info .label { font-size: 0.65rem; color: $gray; letter-spacing: 2px; text-transform: uppercase; transition: $transition; }
 
-  /* 3 y 4. TÍTULO Y TEXTO */
-  .hero { 
-    display: flex !important;
-    flex-direction: column !important; 
-    align-items: flex-start !important;
-    width: 100% !important;
-    margin-top: 1rem !important;
-  }
-
-  .title { 
-    font-size: 3.2rem !important; 
-    width: 100% !important; 
-    text-align: left !important;
-    margin-bottom: 1.5rem !important;
-  }
-
-  .hero-description p { 
-    border-left: none !important; 
-    border-top: 1px solid $border-light !important; 
-    padding: 1.5rem 0 0 0 !important; 
-    max-width: 100% !important;
-    font-size: 0.95rem !important;
-  }
-
-  /* 5. LISTA DE IMÁGENES (FOTO IZQ, INFO DER) */
-  .mobile-list { 
-    display: flex !important;
-    flex-direction: column !important; 
-    gap: 1.2rem; 
-    margin-top: 3rem; 
-    width: 100%; 
-  }
-
-  .list-item { 
-    display: flex !important; 
-    flex-direction: row !important; /* Foto y texto al lado */
-    align-items: center; 
-    gap: 1.2rem; 
-    padding: 0.8rem; 
-    border: 1px solid $border-light;
-    transition: $transition;
-  }
-
-  .thumb { 
-    width: 75px; height: 75px; 
-    border: 1px solid $border-light; 
-    flex-shrink: 0; 
-    overflow: hidden;
-  }
-
-  .thumb img { width: 100%; height: 100%; object-fit: cover; opacity: 0.3; filter: grayscale(100%); }
-
-  .info { display: flex; flex-direction: column; gap: 5px; }
-  .info .number { 
-    font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; color: $white; 
-    border: 1px solid $border-light; border-radius: 50%; width: 35px; height: 35px;
-    display: flex; justify-content: center; align-items: center;
-  }
-  .info .label { font-size: 0.65rem; color: $gray; letter-spacing: 1px; text-transform: uppercase; }
-
-  /* EFECTO TÁCTIL */
-  .list-item:active { 
-    border-color: $white; 
-    .thumb img { opacity: 1; filter: grayscale(0%); transform: scale(1.1); }
-    .info .number { box-shadow: $glow; border-color: $white; }
-  }
+  .list-item:active, .list-item:hover { border-color: $white; transform: translateY(-5px); background: rgba(255,255,255,0.05); }
+  .list-item:active .thumb img, .list-item:hover .thumb img { opacity: 1; filter: grayscale(0%); transform: scale(1.1); }
+  .list-item:active .info .number, .list-item:hover .info .number { border-color: $white; color: $white; box-shadow: $glow; background: rgba(255,255,255,0.1); }
+  .list-item:active .info .label, .list-item:hover .info .label { color: $white; letter-spacing: 3px; }
 }

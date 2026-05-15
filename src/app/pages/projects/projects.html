@@ -1,40 +1,76 @@
-<div class="page-container">
+<router-outlet></router-outlet>
+
+<div class="transmedia-container">
   
-  <div class="projects-header">
-    <h1 class="page-title">HITOS<br>DEPORTIVOS</h1>
-    <p class="page-text">
-      Las aguas donde se hizo historia. Explora el contenido exclusivo y la cronología de las competencias internacionales que marcaron la carrera de nuestro atleta.
-    </p>
+  <header class="header">
+    <div class="logo-pill">UNIVERSO TRANSMEDIA</div>
+    <nav class="nav-pill">
+      <a routerLink="/nosotros" routerLinkActive="active-link">NOSOTROS</a>
+      <a routerLink="/home" routerLinkActive="active-link">HOME</a>
+      <a routerLink="/services" routerLinkActive="active-link">SERVICES</a>
+      <a routerLink="/projects" routerLinkActive="active-link">PROJECTS</a>
+    </nav>
+  </header>
+
+  <div class="hero">
+    <div class="hero-content">
+      <h1 class="title">HITOS<br>DEPORTIVOS</h1>
+    </div>
+    <div class="hero-description">
+      <p>Las aguas donde se hizo historia. Explora el contenido exclusivo y la cronología de las competencias internacionales que marcaron la carrera de nuestro atleta.</p>
+    </div>
   </div>
 
-  <div class="projects-gallery">
+  <div class="projects-grid desktop-only">
     
-    <div class="project-card">
-      <div class="project-image alpha-bg"></div>
-      <div class="project-info">
-        <span class="project-tag">Juegos Parapanamericanos 2019</span>
-        <h3 class="project-name">EL DEBUT EN LIMA</h3>
-        <a href="javascript:void(0)" class="project-link">Ver material de archivo &rarr;</a>
+    <div class="project-banner banner-lima">
+      <div class="content">
+        <span class="tag">JUEGOS PARAPANAMERICANOS 2019</span>
+        <h3 class="name">EL DEBUT EN LIMA</h3>
+        <span class="link">Ver material de archivo →</span>
       </div>
     </div>
 
-    <div class="project-card">
-      <div class="project-image beta-bg"></div>
-      <div class="project-info">
-        <span class="project-tag">Juegos Parapanamericanos 2023</span>
-        <h3 class="project-name">LA GLORIA EN SANTIAGO</h3>
-        <a href="javascript:void(0)" class="project-link">Ver material de archivo &rarr;</a>
+    <div class="project-banner banner-santiago">
+      <div class="content">
+        <span class="tag">JUEGOS PARAPANAMERICANOS 2023</span>
+        <h3 class="name">LA GLORIA EN SANTIAGO</h3>
+        <span class="link">Ver material de archivo →</span>
       </div>
     </div>
 
-    <div class="project-card">
-      <div class="project-image gamma-bg"></div>
-      <div class="project-info">
-        <span class="project-tag">Juegos Paralímpicos 2024</span>
-        <h3 class="project-name">EL SUEÑO DE PARÍS</h3>
-        <a href="javascript:void(0)" class="project-link">Ver material de archivo &rarr;</a>
+    <div class="project-banner banner-paris">
+      <div class="content">
+        <span class="tag">JUEGOS PARALÍMPICOS 2024</span>
+        <h3 class="name">EL SUEÑO DE PARÍS</h3>
+        <span class="link">Ver material de archivo →</span>
       </div>
     </div>
 
   </div>
+
+  <div class="mobile-list mobile-only">
+    <div class="list-item">
+      <div class="thumb"><img src="/images.jpg" alt=""></div>
+      <div class="info">
+        <div class="number">01</div>
+        <div class="label">EL DEBUT EN LIMA</div>
+      </div>
+    </div>
+    <div class="list-item">
+      <div class="thumb"><img src="/images1.jpg" alt=""></div>
+      <div class="info">
+        <div class="number">02</div>
+        <div class="label">LA GLORIA EN SANTIAGO</div>
+      </div>
+    </div>
+    <div class="list-item">
+      <div class="thumb"><img src="/images2.jpg" alt=""></div>
+      <div class="info">
+        <div class="number">03</div>
+        <div class="label">EL SUEÑO DE PARÍS</div>
+      </div>
+    </div>
+  </div>
+
 </div>

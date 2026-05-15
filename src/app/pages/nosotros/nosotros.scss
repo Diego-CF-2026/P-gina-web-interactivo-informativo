@@ -1,71 +1,126 @@
-.nosotros-header {
-  margin-bottom: 4rem;
+/* =========================================
+   VARIABLES Y CONFIGURACIÓN BASE
+   ========================================= */
+$white: #ffffff;
+$gray: rgba(255, 255, 255, 0.6);
+$border-light: rgba(255, 255, 255, 0.15);
+$glow: 0 0 20px rgba(255, 255, 255, 0.5);
+$transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+$neon-orange: #ff3300; 
+
+/* ANIMACIÓN DE APARICIÓN */
+@keyframes pageReveal {
+  0% { opacity: 0; filter: blur(5px); transform: scale(0.98); }
+  100% { opacity: 1; filter: blur(0); transform: scale(1); }
 }
 
-.team-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr); /* Crea 4 columnas exactas */
-  gap: 2rem;
-  width: 100%;
+:host { display: block; width: 100%; min-height: 100vh; overflow-x: hidden; background: transparent !important; }
+
+/* =========================================
+   CONTENEDOR PRINCIPAL - ALINEADO A LA IZQUIERDA
+   ========================================= */
+.transmedia-container { 
+  position: relative; 
+  width: 100%; 
+  max-width: 1400px; 
+  margin: 0; 
+  min-height: 100vh;
+  padding: 3rem 5rem; 
+  display: flex; 
+  flex-direction: column; 
+  box-sizing: border-box; 
+  z-index: 2; 
+  background: transparent !important; 
+  animation: pageReveal 1.2s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
 }
 
-.team-card {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  cursor: pointer;
+/* CLASES DE VISIBILIDAD */
+.mobile-only { display: none !important; }
+.desktop-only { display: flex !important; }
+
+/* =========================================
+   ESTILOS ESCRITORIO (PC)
+   ========================================= */
+.header { display: flex; justify-content: space-between; align-items: center; width: 100%; margin-bottom: 4rem; padding-bottom: 1.5rem; border-bottom: 1px solid $border-light; position: relative; z-index: 100; }
+.logo-pill { font-family: 'Cormorant Garamond', serif; letter-spacing: 3px; color: $white; font-size: 1.2rem; text-transform: uppercase; }
+.nav-pill { display: flex; gap: 2.5rem; pointer-events: auto; }
+.nav-pill a { color: $gray; text-decoration: none; font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; transition: $transition; position: relative; cursor: pointer; }
+.nav-pill a::before { content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); width: 1px; height: 16px; margin-top: 8px; background-color: transparent; transition: $transition; }
+.nav-pill a::after { content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); width: 5px; height: 5px; border-radius: 50%; margin-top: 24px; background-color: transparent; transition: $transition; }
+.nav-pill a:hover, .nav-pill a.active-link { color: $white; text-shadow: 0 0 10px rgba(255,255,255,0.5); }
+.nav-pill a:hover::before, .nav-pill a.active-link::before, .nav-pill a:hover::after, .nav-pill a.active-link::after { background-color: $white; }
+.nav-pill a.active-link::after { box-shadow: $glow; }
+
+.hero { display: flex; justify-content: space-between; align-items: flex-end; width: 100%; margin-top: 2rem; background: transparent !important; }
+.title { font-family: 'Cormorant Garamond', serif; font-size: 6.5rem; font-weight: 300; line-height: 0.9; color: $white; margin: 0; text-transform: uppercase; }
+.hero-description p { color: $gray; max-width: 350px; line-height: 1.8; border-left: 1px solid $border-light; padding-left: 1.5rem; margin: 0; font-size: 1rem; }
+
+/* GALERÍA PC Y TARJETAS */
+.gallery { display: flex; justify-content: flex-start; gap: 2.5rem; margin-top: 5rem; width: 100%; }
+
+.team-member { flex: 1; max-width: 300px; display: flex; flex-direction: column; gap: 1.5rem; cursor: pointer; }
+
+.card { 
+  width: 100%; height: 350px; border: 1px solid $border-light; border-radius: 12px; 
+  background: rgba(0, 0, 0, 0.45); backdrop-filter: blur(4px); 
+  display: flex; justify-content: center; align-items: center; transition: $transition; 
+}
+
+.number-bg { font-size: 7rem; font-weight: 800; color: rgba(255, 255, 255, 0.05); transition: $transition; }
+.card-info { text-align: left; transition: $transition; }
+.member-name { color: $white; font-size: 1.1rem; text-transform: uppercase; margin: 0; font-weight: 800; transition: $transition; }
+.member-role { color: $gray; font-size: 0.85rem; margin: 5px 0 0 0; transition: $transition; }
+
+/* EFECTO HOVER NEÓN NARANJA DIRECTO A LA TARJETA */
+.team-member:hover .card { border-color: $neon-orange; transform: translateY(-10px); box-shadow: 0 0 20px rgba(255, 51, 0, 0.4); background: rgba(0, 0, 0, 0.2); }
+.team-member:hover .number-bg { color: rgba(255, 255, 255, 0.15); }
+.team-member:hover .member-name { color: $neon-orange; }
+
+/* =========================================
+   VISTA MÓVIL (LIMPIA E INTERACTIVA)
+   ========================================= */
+@media (max-width: 768px) {
   
-  /* Efecto Hover para toda la tarjeta */
-  &:hover {
-    .avatar-placeholder {
-      border-color: #ff3300;
-      transform: translateY(-10px);
-      box-shadow: 0 10px 30px rgba(255, 51, 0, 0.2);
-    }
-    .name {
-      color: #ff3300;
-    }
-  }
-}
+  .desktop-only { display: none !important; }
+  .mobile-only { display: flex !important; }
 
-.avatar-placeholder {
-  width: 100%;
-  aspect-ratio: 3/4; /* Proporción elegante para retratos */
-  background-color: rgba(34, 34, 34, 0.6);
-  border: 1px solid #333;
-  border-radius: 15px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transition: all 0.4s ease;
+  .transmedia-container { padding: 2rem 1.5rem !important; width: 100% !important; max-width: 100% !important; background: transparent !important; }
 
-  .number {
-    font-size: 5rem;
-    font-weight: 800;
-    color: rgba(255, 255, 255, 0.05); /* Número gigante casi invisible al fondo */
-  }
-}
+  .header { flex-direction: column !important; align-items: center !important; gap: 1.5rem !important; width: 100% !important; margin-bottom: 3.5rem !important; border-bottom: none !important; padding-bottom: 0 !important; background: transparent !important; }
+  .logo-pill { width: 100% !important; font-size: 1.3rem !important; text-align: center !important; }
+  .nav-pill { width: 100% !important; display: flex !important; justify-content: center !important; gap: 1.5rem !important; flex-wrap: wrap !important; }
+  .nav-pill a { font-size: 0.75rem !important; color: $gray !important; }
+  .nav-pill a::before, .nav-pill a::after { display: none !important; } 
 
-.info {
-  .name {
-    font-size: 1.2rem;
-    font-weight: 800;
-    color: #ffffff;
-    margin-bottom: 0.3rem;
-    text-transform: uppercase;
-    transition: color 0.3s ease;
+  .hero { flex-direction: column !important; align-items: center !important; text-align: center !important; width: 100% !important; gap: 2rem !important; background: transparent !important; }
+  
+  /* Ajuste tipográfico móvil */
+  .title { 
+    font-size: clamp(2.2rem, 11vw, 3.2rem) !important; 
+    width: 100% !important; 
+    line-height: 1.1 !important; 
+    text-align: center !important; 
+    word-break: break-word !important; 
   }
   
-  .role {
-    font-size: 0.9rem;
-    color: #a0a0a0;
-    font-weight: 400;
-  }
-}
+  .hero-description p { text-align: center !important; margin: 0 auto !important; border-left: none !important; border-top: 1px solid $border-light !important; padding: 1.5rem 0 0 0 !important; max-width: 100% !important; }
 
-/* Responsividad: Si lo ven en pantallas más chicas, se acomoda en 2 filas de 2 */
-@media (max-width: 1024px) {
-  .team-grid {
-    grid-template-columns: repeat(2, 1fr);
+  .mobile-list { flex-direction: column !important; gap: 1.5rem !important; margin-top: 4rem !important; width: 100% !important; background: transparent !important; }
+  
+  /* ESTILOS INTERACTIVOS MÓVIL */
+  .list-item { 
+    display: flex !important; align-items: center; gap: 1.5rem; padding: 1rem; border: 1px solid $border-light; 
+    transition: $transition; background: rgba(255,255,255,0.02); width: 100%; box-sizing: border-box; 
+    border-radius: 12px; cursor: pointer;
   }
+  .thumb { width: 85px; height: 85px; border: 1px solid $border-light; overflow: hidden; flex-shrink: 0; }
+  .thumb img { width: 100%; height: 100%; object-fit: cover; opacity: 0.4; filter: grayscale(100%); transition: $transition; }
+  .info { display: flex; flex-direction: column; gap: 0.5rem; }
+  .info .number { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; color: $gray; border: 1px solid $border-light; border-radius: 50%; width: 40px; height: 40px; display: flex; justify-content: center; align-items: center; transition: $transition; }
+  .info .label { font-size: 0.65rem; color: $gray; letter-spacing: 2px; text-transform: uppercase; transition: $transition; }
+
+  .list-item:active, .list-item:hover { border-color: $white; transform: translateY(-5px); background: rgba(255,255,255,0.05); }
+  .list-item:active .thumb img, .list-item:hover .thumb img { opacity: 1; filter: grayscale(0%); transform: scale(1.1); }
+  .list-item:active .info .number, .list-item:hover .info .number { border-color: $white; color: $white; box-shadow: $glow; background: rgba(255,255,255,0.1); }
+  .list-item:active .info .label, .list-item:hover .info .label { color: $white; letter-spacing: 3px; }
 }

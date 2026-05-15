@@ -13,6 +13,9 @@
 .content-wrapper { position: relative; z-index: 2; width: 100%; }
 
 .transmedia-container {
+  position: relative; 
+  z-index: 10; /* Valor mayor al del overlay (2) */
+  background: transparent !important; /* IMPORTANTE: Para ver el video de fondo */
   padding: 3rem 5rem;
   min-height: 100vh;
   display: flex;

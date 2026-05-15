@@ -2,31 +2,10 @@
   
   <!-- VIDEO DE FONDO -->
   <!-- 1. VIDEO DE FONDO (Le quitamos el / a la ruta por si acaso) -->
-  <video 
-    #bgVideo 
-    autoplay 
-    loop 
-    muted 
-    playsinline 
-    [muted]="true" 
-    (canplay)="bgVideo.play()"
-    class="video-background">
-    <source src="fondo.mp4" type="video/mp4">
-  </video>
-  <div class="overlay"></div>
+<video #bgVideo class="video-background" autoplay loop muted playsinline [muted]="true">
+  <source src="/fondo.mp4" type="video/mp4">
+</video>
+<div class="overlay-global"></div>
 
-  <!-- 2. TODO TU CONTENIDO DENTRO DE ESTE WRAPPER -->
-  <div class="content-wrapper">
-    <header class="header">
-      <div class="logo-pill">UNIVERSO TRANSMEDIA</div>
-      <nav class="nav-pill">
-        <a routerLink="/nosotros" routerLinkActive="active">NOSOTROS</a>
-        <a routerLink="/home" routerLinkActive="active">HOME</a>
-        <a routerLink="/services" routerLinkActive="active">SERVICES</a>
-        <a routerLink="/projects" routerLinkActive="active">PROJECTS</a>
-      </nav>
-    </header>
-
-    <router-outlet></router-outlet>
-  </div>
+<router-outlet></router-outlet>
 </main>

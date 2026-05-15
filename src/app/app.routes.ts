@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 
-// Fíjate que aquí ya no dice ".component" al final de la ruta
+// Importaciones apuntando exactamente a tus archivos personalizados
 import { Nosotros } from './pages/nosotros/nosotros';
 import { Home } from './pages/home/home';
 import { Services } from './pages/services/services';
@@ -11,6 +11,8 @@ export const routes: Routes = [
   { path: 'home', component: Home },
   { path: 'services', component: Services },
   { path: 'projects', component: Projects },
+  
+  // Rutas por defecto y comodín
   { path: '', redirectTo: '/home', pathMatch: 'full' }, 
   { path: '**', redirectTo: '/home' } 
 ];
