@@ -1,7 +1,11 @@
 <div class="transmedia-container">
   
   <header class="header">
-    <div class="logo-pill">UNIVERSO TRANSMEDIA</div>
+    <!-- LOGO CON ENLACE AL HOME -->
+    <a routerLink="/home" class="klandestino-brand">
+      <div class="brand-title">KLANDEST<span class="brand-i">I</span>NO</div>
+      <div class="brand-sub">PRODUCTIONS</div>
+    </a>
     <nav class="nav-pill">
       <a routerLink="/nosotros" routerLinkActive="active-link">NOSOTROS</a>
       <a routerLink="/home" routerLinkActive="active-link">HOME</a>
@@ -11,34 +15,56 @@
   </header>
 
   <div class="hero">
-    <h1 class="title">LA ESTRATEGIA<br>TRANSMEDIA</h1>
+    <h1 class="title">NUESTRAS<br>ÁREAS DE EXPERTISE</h1>
     <p class="description">
-      No contamos una sola historia, creamos un ecosistema. Cada plataforma aporta una pieza única al rompecabezas de la vida del deportista, desde sus duros entrenamientos hasta la gloria en el podio.
+      En KLANDESTiNO PRODUCTIONS no solo documentamos historias, construimos ecosistemas tecnológicos y narrativos completos. Fusionamos la estética del cine con una arquitectura digital robusta.
     </p>
   </div>
 
   <div class="services-grid">
     
+    <!-- Tarjeta 1: Audiovisual -->
     <div class="service-card">
-      <h3 class="service-title">Documental Web</h3>
-      <p class="service-desc">La pieza central. Un cortometraje profundo sobre la disciplina, los obstáculos y la preparación mental antes de lanzarse al agua en los Parapanamericanos.</p>
+      <div class="service-number">01</div>
+      <h3 class="service-title">Producción Cinematográfica</h3>
+      <p class="service-desc">Dirección, rodaje y postproducción de piezas documentales y de ficción. Trabajamos con estándares 4K, corrección de color profesional y una narrativa visual inmersiva.</p>
     </div>
 
+    <!-- Tarjeta 2: Desarrollo/Software -->
     <div class="service-card">
-      <h3 class="service-title">Mapa Interactivo</h3>
-      <p class="service-desc">Una línea de tiempo geográfica programada a medida. Explora las piscinas, ciudades y competencias donde nuestro campeón forjó su carrera y ganó sus medallas.</p>
+      <div class="service-number">02</div>
+      <h3 class="service-title">Desarrollo Web Interactivo</h3>
+      <p class="service-desc">Programación frontend avanzada y diseño de interfaces (UI/UX). Construimos plataformas a medida con transiciones fluidas y componentes dinámicos para experiencias únicas.</p>
     </div>
 
+    <!-- Tarjeta 3: Transmedia -->
     <div class="service-card">
-      <h3 class="service-title">Podcast en Spotify</h3>
-      <p class="service-desc">Charlas íntimas de audio. Episodios semanales con entrevistas exclusivas al nadador, su familia, sus médicos y su entrenador principal.</p>
+      <div class="service-number">03</div>
+      <h3 class="service-title">Arquitectura Transmedia</h3>
+      <p class="service-desc">Diseño de estrategias narrativas multiplataforma. Expandimos un mismo universo a través de redes sociales, web y medios tradicionales, manteniendo la cohesión de la historia.</p>
     </div>
 
+    <!-- Tarjeta 4: Audio -->
     <div class="service-card">
-      <h3 class="service-title">Cápsulas de TikTok</h3>
-      <p class="service-desc">Contenido dinámico y vertical. Detrás de cámaras de las grabaciones, rutinas rápidas de natación y retos virales para conectar con audiencias más jóvenes.</p>
+      <div class="service-number">04</div>
+      <h3 class="service-title">Diseño Sonoro y Podcasting</h3>
+      <p class="service-desc">Grabación, mezcla y masterización de audio. Producimos podcasts optimizados para plataformas de streaming, garantizando claridad vocal y atmósferas sonoras envolventes.</p>
     </div>
 
   </div>
 
 </div>
+
+<!-- =========================================
+     BOTÓN FLOTANTE DE WHATSAPP
+     ========================================= -->
+<!-- Reemplaza el '51999999999' por tu número real de Perú -->
+<a href="https://wa.me/51944516632" target="_blank" class="whatsapp-float">
+  <div class="wa-text">¿Gustas en contactarnos?</div>
+  <div class="wa-icon">
+    <!-- Ícono SVG oficial y perfectamente centrado -->
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#ffffff" viewBox="0 0 16 16">
+      <path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/>
+    </svg>
+  </div>
+</a>

@@ -3,7 +3,11 @@
 <div class="transmedia-container">
   
   <header class="header">
-    <div class="logo-pill">UNIVERSO TRANSMEDIA</div>
+    <!-- LOGO CON ENLACE AL HOME -->
+    <a routerLink="/home" class="klandestino-brand">
+      <div class="brand-title">KLANDEST<span class="brand-i">I</span>NO</div>
+      <div class="brand-sub">PRODUCTIONS</div>
+    </a>
     <nav class="nav-pill">
       <a routerLink="/nosotros" routerLinkActive="active-link">NOSOTROS</a>
       <a routerLink="/home" routerLinkActive="active-link">HOME</a>
@@ -12,87 +16,221 @@
     </nav>
   </header>
 
-  <div class="hero">
-    <div class="hero-content">
-      <h1 class="title">MÁS ALLÁ<br>DEL LÍMITE</h1>
-    </div>
-    <div class="hero-description">
-      <p>Descubre la biografía interactiva de nuestro campeón parapanamericano de natación. Una historia de resiliencia contada a través de múltiples formatos.</p>
-    </div>
-  </div>
+  <!-- =========================================
+       VISTA 1: TU HOME ORIGINAL
+       ========================================= -->
+  <!-- Modificado para que se oculte si el mapa o el documental están abiertos -->
+  @if (!mostrarMapa && !mostrarDocumental) {
+    <div class="home-view fade-in">
+      
+      <div class="hero">
+        <div class="hero-content">
+          <h1 class="title">MÁS ALLÁ<br>DEL LÍMITE</h1>
+        </div>
+        <div class="hero-description">
+          <p>Descubre la biografía interactiva de nuestro campeón parapanamericano de natación. Una historia de resiliencia contada a través de múltiples formatos.</p>
+        </div>
+      </div>
 
-  <div class="gallery desktop-only">
-    <div class="card card-1">
-      <img src="/images.jpg" alt="Mapa Interactivo">
-    </div>
-    <div class="card card-2">
-      <img src="/images.png" alt="Documental">
-    </div>
-    <div class="card card-3">
-      <img src="/images1.jpg" alt="Podcast">
-    </div>
-    <div class="card card-4">
-      <img src="/images2.jpg" alt="TikToks">
-    </div>
-  </div>
+      <!-- =========================================
+           NUEVA GALERÍA ASIMÉTRICA (ESTILO IMAGEN)
+           ========================================= -->
+      <div class="gallery-asymmetric desktop-only">
+        
+        <div class="card card-1" (click)="toggleMapa()" style="cursor: pointer;">
+          <img src="/images.jpg" alt="Mapa Interactivo">
+        </div>
+        
+        <div class="card card-2" (click)="toggleDocumental()" style="cursor: pointer;">
+          <img src="/images.png" alt="Documental">
+        </div>
+        
+        <div class="card card-3" (click)="abrirEnlace('https://open.spotify.com/')" style="cursor: pointer;">
+          <img src="/images1.jpg" alt="Podcast">
+        </div>
+        
+        <div class="card card-4" (click)="abrirEnlace('https://www.tiktok.com/')" style="cursor: pointer;">
+          <img src="/images2.jpg" alt="TikToks">
+        </div>
+        
+      </div>
 
-  <div class="timeline-menu desktop-only">
-    <div class="timeline-line"></div>
-    
-    <div class="menu-item menu-1">
-      <div class="tick"></div>
-      <div class="number">01</div>
-      <div class="label">MAPA INTERACTIVO</div>
-    </div>
-    
-    <div class="menu-item menu-2">
-      <div class="tick"></div>
-      <div class="number">02</div>
-      <div class="label">DOCUMENTAL</div>
-    </div>
-    
-    <div class="menu-item menu-3">
-      <div class="tick"></div>
-      <div class="number">03</div>
-      <div class="label">PODCAST SPOTIFY</div>
-    </div>
-    
-    <div class="menu-item menu-4">
-      <div class="tick"></div>
-      <div class="number">04</div>
-      <div class="label">TIK TOKS</div>
-    </div>
-  </div>
+      <!-- =========================================
+           NUEVO MENÚ HORIZONTAL INFERIOR
+           ========================================= -->
+      <div class="horizontal-menu desktop-only">
+        
+        <div class="menu-item" (click)="toggleMapa()" style="cursor: pointer;">
+          <div class="number">01</div>
+          <div class="label">CRONOLOGÍA<br>DEPORTIVA</div>
+        </div>
+        
+        <div class="menu-item" (click)="toggleDocumental()" style="cursor: pointer;">
+          <div class="number">02</div>
+          <div class="label">DOCUMENTAL</div>
+        </div>
+        
+        <div class="menu-item" (click)="abrirEnlace('https://open.spotify.com/')" style="cursor: pointer;">
+          <div class="number">03</div>
+          <div class="label">PODCAST<br>SPOTIFY</div>
+        </div>
+        
+        <div class="menu-item" (click)="abrirEnlace('https://www.tiktok.com/')" style="cursor: pointer;">
+          <div class="number">04</div>
+          <div class="label">TIK TOKS</div>
+        </div>
+        
+      </div>
 
-  <div class="mobile-list mobile-only">
-    <div class="list-item">
-      <div class="thumb"><img src="/images.jpg" alt=""></div>
-      <div class="info">
-        <div class="number">01</div>
-        <div class="label">MAPA INTERACTIVO</div>
+      <div class="mobile-list mobile-only">
+        <div class="list-item" (click)="toggleMapa()" style="cursor: pointer;">
+          <div class="thumb"><img src="/images.jpg" alt=""></div>
+          <div class="info">
+            <div class="number">01</div>
+            <div class="label">CRONOLOGÍA DEPORTIVA</div>
+          </div>
+        </div>
+        <!-- Evento click agregado al item 2 en móviles -->
+        <div class="list-item" (click)="toggleDocumental()" style="cursor: pointer;">
+          <div class="thumb"><img src="/images.png" alt=""></div>
+          <div class="info">
+            <div class="number">02</div>
+            <div class="label">DOCUMENTAL</div>
+          </div>
+        </div>
+        <!-- Evento click para Spotify en móvil -->
+        <div class="list-item" (click)="abrirEnlace('https://open.spotify.com/')" style="cursor: pointer;">
+          <div class="thumb"><img src="/images1.jpg" alt=""></div>
+          <div class="info">
+            <div class="number">03</div>
+            <div class="label">PODCAST SPOTIFY</div>
+          </div>
+        </div>
+
+        <!-- Evento click para TikTok en móvil -->
+        <div class="list-item" (click)="abrirEnlace('https://www.tiktok.com/')" style="cursor: pointer;">
+          <div class="thumb"><img src="/images2.jpg" alt=""></div>
+          <div class="info">
+            <div class="number">04</div>
+            <div class="label">TIK TOKS</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  }
+
+  <!-- =========================================
+       VISTA 2: MAPA INTERACTIVO (LÍNEA DE TIEMPO)
+       ========================================= -->
+  @if (mostrarMapa) {
+    <div class="timeline-view fade-in">
+      
+      <div class="timeline-controls">
+        <button class="btn-back" (click)="toggleMapa()">← VOLVER AL INICIO</button>
+        <h2 class="timeline-main-title">CRONOLOGÍA DEPORTIVA</h2>
+      </div>
+
+      <div class="timeline-scroll-wrapper">
+        <div class="timeline-track">
+          
+          <div class="timeline-line-map"></div>
+
+          @for (hito of hitos; track hito.anio; let i = $index) {
+            
+            <div class="timeline-node" [class.is-top]="i % 2 === 0" [class.is-bottom]="i % 2 !== 0" (click)="abrirDetalle(hito)" style="cursor: pointer;">
+              
+              <div class="timeline-content">
+                <div class="year">{{ hito.anio }}</div>
+                <div class="photo-wrapper">
+                  <img [src]="hito.imagen" [alt]="hito.atleta">
+                </div>
+                <h3>{{ hito.atleta }}</h3>
+                <p class="country">{{ hito.pais }}</p>
+                <p class="medals">{{ hito.medallas }}</p>
+              </div>
+
+              <div class="timeline-dot"></div>
+              
+            </div>
+          }
+
+        </div>
+      </div>
+
+    </div>
+  }
+
+  <!-- =========================================
+       VISTA 3: EL DOCUMENTAL
+       ========================================= -->
+  @if (mostrarDocumental) {
+    <div class="documental-view fade-in">
+      
+      <div class="doc-controls">
+        <button class="btn-back" (click)="toggleDocumental()">← VOLVER AL INICIO</button>
+      </div>
+
+      <div class="doc-layout">
+        <!-- Sección Izquierda: Información -->
+        <div class="doc-info">
+          <h3 class="doc-kicker">DOCUMENTAL ORIGINAL</h3>
+          <h1 class="doc-title">RODRIGO:<br>CONTRA LA CORRIENTE</h1>
+          
+          <div class="doc-metadata">
+            <span>2026</span>
+            <span class="separator">|</span>
+            <span>15 MIN</span>
+            <span class="separator">|</span>
+            <span class="tag-hd">4K Ultra HD</span>
+          </div>
+
+          <p class="doc-synopsis">
+            Una mirada íntima a la vida de Rodrigo Santillán. Desde sus primeros días de rehabilitación hasta consagrarse con diplomas paralímpicos en Tokio y París. Un testimonio de resiliencia, familia y el poder transformador del agua.
+          </p>
+
+          <div class="doc-credits">
+            <p><strong>Dirección:</strong> María Pérez</p>
+            <p><strong>Producción Sonora:</strong> Luis Gómez</p>
+          </div>
+        </div>
+        <!-- Sección Derecha: Reproductor -->
+        <div class="doc-player-container">
+          <!-- Reproductor de Video Nativo -->
+          <video 
+            class="doc-video" 
+            controls 
+            preload="metadata"
+            poster="/images1.jpg" >
+            
+            <!-- Aquí pones la ruta de tu video. Puede ser .mp4, .webm, etc. -->
+            <source src="/fondo.mp4" type="video/mp4">
+            
+            Tu navegador no soporta la reproducción de videos.
+          </video>
+        </div>
       </div>
     </div>
-    <div class="list-item">
-      <div class="thumb"><img src="/images.png" alt=""></div>
-      <div class="info">
-        <div class="number">02</div>
-        <div class="label">DOCUMENTAL</div>
-      </div>
-    </div>
-    <div class="list-item">
-      <div class="thumb"><img src="/images1.jpg" alt=""></div>
-      <div class="info">
-        <div class="number">03</div>
-        <div class="label">PODCAST SPOTIFY</div>
-      </div>
-    </div>
-    <div class="list-item">
-      <div class="thumb"><img src="/images2.jpg" alt=""></div>
-      <div class="info">
-        <div class="number">04</div>
-        <div class="label">TIK TOKS</div>
-      </div>
-    </div>
-  </div>
+  }
 
 </div>
+
+<!-- =========================================
+     MODAL DE EXPANSIÓN (ZOOM IN) DEL MAPA
+     ========================================= -->
+@if (hitoSeleccionado) {
+  <div class="timeline-modal-overlay" (click)="cerrarDetalle()">
+    <div class="timeline-modal-content" (click)="$event.stopPropagation()">
+
+      <div class="modal-year-bg">{{ hitoSeleccionado.anio }}</div>
+      
+      <div class="modal-photo">
+        <img [src]="hitoSeleccionado.imagen" [alt]="hitoSeleccionado.atleta">
+      </div>
+
+      <h2 class="modal-title">{{ hitoSeleccionado.medallas }}</h2>
+      <p class="modal-detail">{{ hitoSeleccionado.detalle }}</p>
+      
+    </div>
+  </div>
+}

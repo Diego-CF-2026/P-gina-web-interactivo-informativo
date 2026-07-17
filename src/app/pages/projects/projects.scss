@@ -1,32 +1,36 @@
 /* =========================================
-   VARIABLES PREMIUM
+   VARIABLES BASE
    ========================================= */
 $white: #ffffff;
 $gray: rgba(255, 255, 255, 0.6);
 $border-light: rgba(255, 255, 255, 0.15);
 $glow: 0 0 20px rgba(255, 255, 255, 0.5);
 $transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-$neon-orange: #ff3300; 
+$neon-orange: #cc0000;
 
-@keyframes pageReveal {
-  0% { opacity: 0; filter: blur(5px); transform: scale(0.98); }
-  100% { opacity: 1; filter: blur(0); transform: scale(1); }
+/* ANIMACIÓN */
+.fade-in { animation: fadeIn 0.8s cubic-bezier(0.25, 0.8, 0.25, 1) forwards; }
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
+/* RESETEO DEL COMPONENTE */
 :host { display: block; width: 100%; min-height: 100vh; overflow-x: hidden; background: transparent !important; }
-html, body { margin: 0; padding: 0; width: 100%; min-height: 100vh; background-color: #000 !important; overflow-x: hidden !important; }
+.desktop-only { display: flex !important; }
 
-/* CONTENEDOR ALINEADO IZQUIERDA */
+/* (Los fondos .video-background y .overlay ahora viven en el styles.scss global) */
+
 .transmedia-container { 
-  position: relative; width: 100%; max-width: 1400px; margin: 0; min-height: 100vh;
-  padding: 3rem 5rem; display: flex; flex-direction: column; box-sizing: border-box; z-index: 2; 
-  animation: pageReveal 1.2s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+  position: relative; width: 100%; max-width: 1400px; margin: 0 auto; min-height: 100vh;
+  padding: 3rem 5rem 6rem 5rem; display: flex; flex-direction: column; box-sizing: border-box; z-index: 2; 
 }
 
-/* ENCABEZADO PC */
-.header { display: flex; justify-content: space-between; align-items: center; width: 100%; margin-bottom: 4rem; padding-bottom: 1.5rem; border-bottom: 1px solid $border-light; position: relative; z-index: 100; }
-.logo-pill { font-family: 'Cormorant Garamond', serif; letter-spacing: 3px; color: $white; font-size: 1.2rem; text-transform: uppercase; }
-.nav-pill { display: flex; gap: 2.5rem; }
+/* =========================================
+   HEADER Y LOGO
+   ========================================= */
+.header { display: flex; justify-content: space-between; align-items: center; width: 100%; margin-bottom: 3rem; padding-bottom: 1.5rem; border-bottom: 1px solid $border-light; }
+.nav-pill { display: flex; gap: 2.5rem; pointer-events: auto; }
 .nav-pill a { color: $gray; text-decoration: none; font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; transition: $transition; position: relative; cursor: pointer; }
 .nav-pill a::before { content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); width: 1px; height: 16px; margin-top: 8px; background-color: transparent; transition: $transition; }
 .nav-pill a::after { content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); width: 5px; height: 5px; border-radius: 50%; margin-top: 24px; background-color: transparent; transition: $transition; }
@@ -34,88 +38,164 @@ html, body { margin: 0; padding: 0; width: 100%; min-height: 100vh; background-c
 .nav-pill a:hover::before, .nav-pill a.active-link::before, .nav-pill a:hover::after, .nav-pill a.active-link::after { background-color: $white; }
 .nav-pill a.active-link::after { box-shadow: $glow; }
 
-/* HERO PC */
-.hero { display: flex; justify-content: space-between; align-items: flex-end; width: 100%; margin-top: 2rem; background: transparent !important; }
-.title { font-family: 'Cormorant Garamond', serif; font-size: 6.5rem; font-weight: 300; line-height: 0.9; color: $white; margin: 0; text-transform: uppercase; }
-.hero-description p { color: $gray; max-width: 350px; line-height: 1.8; border-left: 1px solid $border-light; padding-left: 1.5rem; margin: 0; font-size: 1rem; }
-
-.projects-grid { display: flex; flex-direction: column; gap: 2.5rem; margin-top: 5rem; width: 100%; }
-
-.project-banner {
-  width: 100%; height: 250px; border-radius: 24px; border: 1px solid $border-light;
-  position: relative; overflow: hidden; cursor: pointer; transition: $transition;
-  display: flex; align-items: center; padding: 0 5rem;
-  background-size: cover; background-position: center;
-
-  &::before {
-    content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-    background: linear-gradient(90deg, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.2) 100%); transition: $transition;
-  }
-
-  &.banner-lima { background-image: url("/images.jpg"); border-color: rgba(255, 51, 0, 0.3); }
-  &.banner-santiago { background-image: url("/images1.jpg"); border-color: rgba(0, 119, 255, 0.3); }
-  &.banner-paris { background-image: url("/images2.jpg"); border-color: rgba(0, 255, 102, 0.3); }
-
-  .content { position: relative; z-index: 2; display: flex; flex-direction: column; gap: 1rem; }
-  .tag { background: $neon-orange; color: $white; padding: 5px 15px; border-radius: 50px; font-size: 0.7rem; font-weight: 800; width: fit-content; }
-  .name { color: $white; font-size: 2.8rem; font-weight: 800; margin: 0; text-transform: uppercase; }
-  .link { color: $gray; font-size: 1rem; transition: $transition; }
-
-  &:hover {
-    border-color: $white; transform: translateY(-5px); box-shadow: $glow;
-    &::before { background: linear-gradient(90deg, rgba(0,0,0,0.95) 0%, rgba(255, 51, 0, 0.1) 100%); }
-    .name { text-shadow: $glow; }
-    .link { color: $white; padding-left: 10px; }
-  }
-}
-
-.mobile-only { display: none !important; }
+.klandestino-brand { display: flex; flex-direction: column; align-items: center; text-decoration: none; cursor: pointer; transition: transform 0.3s ease; }
+.klandestino-brand:hover { transform: scale(1.05); }
+.brand-title { font-family: 'Impact', 'Arial Black', sans-serif; font-size: 3.5rem; color: $white; letter-spacing: 1px; line-height: 0.9; margin: 0; text-transform: uppercase; }
+.brand-i { position: relative; display: inline-block; }
+.brand-i::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 26%; background-color: $neon-orange; }
+.brand-sub { font-family: 'Arial', sans-serif; font-size: 0.85rem; color: $neon-orange; letter-spacing: 9px; margin-top: 2px; text-transform: uppercase; font-weight: 700; margin-right: -9px; }
 
 /* =========================================
-   VISTA MÓVIL BLINDADA E INTERACTIVA
+   PORTAFOLIO HEADER
+   ========================================= */
+.portfolio-header { text-align: center; margin-bottom: 4rem; margin-top: 2rem; }
+.portfolio-title { font-family: 'Cormorant Garamond', serif; font-size: 4.5rem; font-weight: 300; line-height: 1; color: $white; margin: 0 0 1rem 0; text-transform: uppercase; letter-spacing: 2px; }
+.portfolio-description { color: $gray; font-family: 'Arial', sans-serif; font-size: 1.1rem; max-width: 600px; margin: 0 auto; line-height: 1.6; }
+
+/* =========================================
+   GRILLA DE PROYECTOS (CATÁLOGO)
+   ========================================= */
+.projects-grid {
+  display: grid;
+  /* Crea columnas automáticas que se adaptan a la pantalla. Mínimo 300px, máximo 1fr */
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 2.5rem;
+  width: 100%;
+}
+
+/* 1. Darle una altura mínima a la tarjeta para que respire el contenido */
+.project-card {
+  position: relative;
+  overflow: hidden;
+  min-height: 350px; /* Ajusta este valor si necesitas más espacio */
+  border-radius: 12px;
+  display: block; /* Importante para la etiqueta <a> de T1 */
+  transition: transform 0.3s ease;
+  /* (Conserva los demás estilos de borde o sombras que ya tenías) */
+}
+
+.project-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.6; /* Un poco oscuras por defecto */
+  filter: grayscale(40%);
+  transition: all 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* 2. Hacer que el overlay ocupe toda la tarjeta y empuje el texto hacia abajo */
+.project-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end; /* Alinea el texto en la parte inferior */
+  padding: 30px 25px 45px 25px;
+  box-sizing: border-box;
+  
+  /* Un degradado más alto y oscuro para que el texto blanco se lea perfecto */
+  background: linear-gradient(
+    to top, 
+    rgba(0,0,0, 0.95) 0%, 
+    rgba(0,0,0, 0.7) 60%, 
+    transparent 100%
+  );
+}
+
+.project-category {
+  color: $neon-orange;
+  font-family: 'Arial', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+.project-name {
+  color: $white;
+  font-family: 'Arial', sans-serif;
+  font-size: 1.8rem;
+  font-weight: 800;
+  margin: 0 0 0.5rem 0;
+  line-height: 1.1;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+}
+
+/* 3. Asegurar que el texto no tenga restricciones que lo corten */
+.project-summary {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: #ddd;
+  margin-top: 10px;
+  margin-bottom: 0;
+  
+  /* Estas tres líneas eliminan cualquier restricción de corte (ellipsis) */
+  white-space: normal;
+  overflow: visible;
+  display: block; 
+}
+
+/* =========================================
+   EFECTO HOVER EN LAS TARJETAS
+   ========================================= */
+
+/* 1. La tarjeta principal se eleva suavemente sin cambiar su tamaño interno */
+.project-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* 2. El overlay (fondo negro) oscurece un poco pero MANTIENE el mismo padding */
+.project-card:hover .project-overlay {
+  /* Forzamos a que el padding no cambie al pasar el cursor */
+  padding: 30px 25px 45px 25px !important;
+  
+  background: linear-gradient(
+    to top, 
+    rgba(0,0,0, 0.98) 0%, 
+    rgba(0,0,0, 0.8) 70%, 
+    transparent 100%
+  );
+}
+
+/* 3. Evitamos que el texto agregue márgenes fantasma al hacer hover */
+.project-card:hover .project-summary,
+.project-card:hover .project-name {
+  margin-bottom: 0 !important;
+  /* Si quieres que el texto haga un pequeño salto visual, usa transform: */
+  transform: translateY(-3px);
+  transition: transform 0.3s ease;
+}
+
+.project-card:hover img {
+  opacity: 1;
+  filter: grayscale(0%);
+  transform: scale(1.08); /* La imagen se acerca */
+}
+
+.project-card:hover .project-summary {
+  height: 40px; /* Expande para mostrar el resumen */
+  opacity: 1;
+  margin-top: 10px;
+}
+
+/* =========================================
+   MÓVIL
    ========================================= */
 @media (max-width: 768px) {
-  .desktop-only { display: none !important; }
-  .mobile-only { display: flex !important; }
-
-  .transmedia-container { padding: 2rem 1.5rem !important; width: 100% !important; max-width: 100% !important; }
-
-  .header { flex-direction: column !important; align-items: center !important; gap: 1.5rem !important; border-bottom: none !important; padding-bottom: 0 !important; }
-  .logo-pill { text-align: center !important; }
-  .nav-pill { justify-content: center !important; gap: 1rem !important; flex-wrap: wrap !important; width: 100%; }
-  .nav-pill a { font-size: 0.75rem !important; }
-  .nav-pill a::before, .nav-pill a::after { display: none !important; } 
-
-  .hero { flex-direction: column !important; align-items: center !important; text-align: center !important; gap: 2rem !important; }
+  .transmedia-container { padding: 2rem 1.5rem; }
+  .header { flex-direction: column; gap: 2rem; border-bottom: none; }
+  .nav-pill { display: none; } /* Puedes cambiarlo si tienes un menú hamburguesa */
   
-  /* Ajuste preciso para "HITOS DEPORTIVOS" */
-  .title { 
-    font-size: clamp(2rem, 9vw, 3.5rem) !important; 
-    width: 100% !important; 
-    line-height: 1.1 !important; 
-    text-align: center !important; 
-  }
+  .portfolio-title { font-size: 3rem; }
+  .portfolio-description { font-size: 1rem; }
   
-  .hero-description p { text-align: center !important; margin: 0 auto !important; border-left: none !important; border-top: 1px solid $border-light !important; padding: 1.5rem 0 0 0 !important; }
-
-  .mobile-list { flex-direction: column !important; gap: 1.5rem !important; margin-top: 4rem !important; width: 100% !important; }
-  
-  .list-item { 
-    display: flex !important; align-items: center; gap: 1.5rem; padding: 1rem; border: 1px solid $border-light; 
-    background: rgba(255,255,255,0.02); width: 100%; box-sizing: border-box; border-radius: 12px;
-    cursor: pointer; /* CRÍTICO PARA INTERACTIVIDAD EN MÓVIL */
-    transition: $transition;
-  }
-  
-  .thumb { width: 85px; height: 85px; border: 1px solid $border-light; overflow: hidden; flex-shrink: 0; }
-  .thumb img { width: 100%; height: 100%; object-fit: cover; opacity: 0.4; transition: $transition; }
-  .info { display: flex; flex-direction: column; gap: 0.5rem; }
-  .info .number { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; color: $gray; border: 1px solid $border-light; border-radius: 50%; width: 40px; height: 40px; display: flex; justify-content: center; align-items: center; transition: $transition; }
-  .info .label { font-size: 0.65rem; color: $gray; letter-spacing: 2px; text-transform: uppercase; transition: $transition; }
-
-  /* ANIMACIONES DE TOQUE RESTAURADAS */
-  .list-item:active, .list-item:hover { border-color: $white; transform: translateY(-5px); background: rgba(255,255,255,0.05); }
-  .list-item:active .thumb img, .list-item:hover .thumb img { opacity: 1; filter: grayscale(0%); transform: scale(1.1); }
-  .list-item:active .info .number, .list-item:hover .info .number { border-color: $white; color: $white; box-shadow: $glow; background: rgba(255,255,255,0.1); }
-  .list-item:active .info .label, .list-item:hover .info .label { color: $white; letter-spacing: 3px; }
+  .projects-grid { grid-template-columns: 1fr; }
+  .project-overlay { opacity: 1; transform: translateY(0); }
+  .project-summary { height: auto; opacity: 1; margin-top: 10px; }
+  .project-card img { opacity: 0.8; filter: grayscale(0%); }
 }

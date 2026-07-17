@@ -1,76 +1,50 @@
-<router-outlet></router-outlet>
-
-<div class="transmedia-container">
+<div class="transmedia-container fade-in">
   
+  <!-- CABECERA -->
   <header class="header">
-    <div class="logo-pill">UNIVERSO TRANSMEDIA</div>
-    <nav class="nav-pill">
-      <a routerLink="/nosotros" routerLinkActive="active-link">NOSOTROS</a>
-      <a routerLink="/home" routerLinkActive="active-link">HOME</a>
-      <a routerLink="/services" routerLinkActive="active-link">SERVICES</a>
-      <a routerLink="/projects" routerLinkActive="active-link">PROJECTS</a>
-    </nav>
+    <a routerLink="/home" class="klandestino-brand">
+      <div class="brand-title">KLANDEST<span class="brand-i">I</span>NO</div>
+      <div class="brand-sub">PRODUCTIONS</div>
+    </a>
+    
+    <div class="nav-pill desktop-only">
+      <a routerLink="/nosotros">Nosotros</a>
+      <a routerLink="/home">Home</a>
+      <a routerLink="/services">Services</a>
+      <a routerLink="/projects" class="active-link">Projects</a>
+    </div>
   </header>
 
-  <div class="hero">
-    <div class="hero-content">
-      <h1 class="title">HITOS<br>DEPORTIVOS</h1>
-    </div>
-    <div class="hero-description">
-      <p>Las aguas donde se hizo historia. Explora el contenido exclusivo y la cronología de las competencias internacionales que marcaron la carrera de nuestro atleta.</p>
-    </div>
+  <!-- TÍTULO DE LA SECCIÓN (ENFOQUE AUDIOVISUAL) -->
+  <div class="portfolio-header">
+    <h1 class="portfolio-title">NUESTRAS PRODUCCIONES</h1>
+    <p class="portfolio-description">
+      Explora nuestro catálogo de documentales, cortometrajes y campañas transmedia. Historias reales contadas a través del lente.
+    </p>
   </div>
 
-  <div class="projects-grid desktop-only">
+  <!-- GRILLA DEL PORTAFOLIO (CATÁLOGO AUDIOVISUAL) -->
+  <div class="projects-grid">
     
-    <div class="project-banner banner-lima">
-      <div class="content">
-        <span class="tag">JUEGOS PARAPANAMERICANOS 2019</span>
-        <h3 class="name">EL DEBUT EN LIMA</h3>
-        <span class="link">Ver material de archivo →</span>
+    <!-- PROYECTO 1: MÁS ALLÁ DEL LÍMITE (Enlace Interno) -->
+    <a class="project-card" href="https://klandestino-rodrigo-santillan.vercel.app/" target="_blank" rel="noopener noreferrer" style="text-decoration: none; color: inherit;">
+      <img src="/images1.jpg" alt="Más Allá del Límite">
+      <div class="project-overlay">
+        <span class="project-category">Documental Transmedia</span>
+        <h3 class="project-name">Más Allá del Límite</h3>
+        <p class="project-summary">La historia de resiliencia de Rodrigo Santillán. Un proyecto web que narra su trayectoria y logros en los Juegos Paralímpicos, destacando su espíritu de superación y dedicación al deporte.</p>
       </div>
-    </div>
+    </a>
 
-    <div class="project-banner banner-santiago">
-      <div class="content">
-        <span class="tag">JUEGOS PARAPANAMERICANOS 2023</span>
-        <h3 class="name">LA GLORIA EN SANTIAGO</h3>
-        <span class="link">Ver material de archivo →</span>
+    <!-- PROYECTO 2: NEXO E-SPORTS T1 (Enlace Externo) -->
+    <a class="project-card" href="https://klandestino-t1.vercel.app/" target="_blank" rel="noopener noreferrer" style="text-decoration: none; color: inherit;">
+      <img src="/T1-2024-roster.jpg" alt="Nexo E-Sports T1">
+      <div class="project-overlay">
+        <span class="project-category">Landing Page / SPA</span>
+        <h3 class="project-name">Nexo E-Sports</h3>
+        <p class="project-summary">Un recorrido interactivo por el legado del equipo campeón mundial T1. Narrando su historia y logros en el universo del e-sports.</p>
       </div>
-    </div>
-
-    <div class="project-banner banner-paris">
-      <div class="content">
-        <span class="tag">JUEGOS PARALÍMPICOS 2024</span>
-        <h3 class="name">EL SUEÑO DE PARÍS</h3>
-        <span class="link">Ver material de archivo →</span>
-      </div>
-    </div>
+    </a>
 
   </div>
-
-  <div class="mobile-list mobile-only">
-    <div class="list-item">
-      <div class="thumb"><img src="/images.jpg" alt=""></div>
-      <div class="info">
-        <div class="number">01</div>
-        <div class="label">EL DEBUT EN LIMA</div>
-      </div>
-    </div>
-    <div class="list-item">
-      <div class="thumb"><img src="/images1.jpg" alt=""></div>
-      <div class="info">
-        <div class="number">02</div>
-        <div class="label">LA GLORIA EN SANTIAGO</div>
-      </div>
-    </div>
-    <div class="list-item">
-      <div class="thumb"><img src="/images2.jpg" alt=""></div>
-      <div class="info">
-        <div class="number">03</div>
-        <div class="label">EL SUEÑO DE PARÍS</div>
-      </div>
-    </div>
-  </div>
-
 </div>

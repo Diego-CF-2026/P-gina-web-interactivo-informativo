@@ -1,7 +1,11 @@
 <div class="transmedia-container">
   
   <header class="header">
-    <div class="logo-pill">UNIVERSO TRANSMEDIA</div>
+    <!-- LOGO KLANDESTINO -->
+    <a routerLink="/home" class="klandestino-brand">
+      <div class="brand-title">KLANDEST<span class="brand-i">I</span>NO</div>
+      <div class="brand-sub">PRODUCTIONS</div>
+    </a>
     <nav class="nav-pill">
       <a routerLink="/nosotros" routerLinkActive="active-link">NOSOTROS</a>
       <a routerLink="/home" routerLinkActive="active-link">HOME</a>
@@ -19,79 +23,90 @@
     </div>
   </div>
 
+  <!-- =========================================
+       GALERÍA ESCRITORIO DINÁMICA
+       ========================================= -->
   <div class="gallery desktop-only">
-    
-    <div class="team-member">
-      <div class="card card-1">
-        <span class="number-bg">01</span>
-      </div>
-      <div class="card-info">
-        <h3 class="member-name">NOMBRE INTEGRANTE</h3>
-        <p class="member-role">Dirección del Documental</p>
-      </div>
-    </div>
+    <!-- El @for reemplaza tener que escribir las 4 tarjetas a mano -->
+    @for (integrante of equipo; track integrante.id) {
+      <div class="team-member" (click)="abrirModal(integrante)">
+        <div class="card-container">
+          <div class="card">
+            
+            <div class="card-face card-front">
+              <span class="number-bg">{{ integrante.id }}</span>
+            </div>
+            
+            <div class="card-face card-back">
+              <img [src]="integrante.imagen" [alt]="integrante.nombre">
+            </div>
 
-    <div class="team-member">
-      <div class="card card-2">
-        <span class="number-bg">02</span>
+          </div>
+        </div>
+        <div class="card-info">
+          <h3 class="member-name">{{ integrante.nombre }}</h3>
+          <p class="member-role">{{ integrante.rol }}</p>
+        </div>
       </div>
-      <div class="card-info">
-        <h3 class="member-name">NOMBRE INTEGRANTE</h3>
-        <p class="member-role">Producción de Podcast</p>
-      </div>
-    </div>
-
-    <div class="team-member">
-      <div class="card card-3">
-        <span class="number-bg">03</span>
-      </div>
-      <div class="card-info">
-        <h3 class="member-name">NOMBRE INTEGRANTE</h3>
-        <p class="member-role">Estrategia en TikToks</p>
-      </div>
-    </div>
-
-    <div class="team-member">
-      <div class="card card-4">
-        <span class="number-bg">04</span>
-      </div>
-      <div class="card-info">
-        <h3 class="member-name">TU NOMBRE</h3>
-        <p class="member-role">Desarrollo Web Interactivo</p>
-      </div>
-    </div>
-
+    }
   </div>
 
+  <!-- =========================================
+       VISTA MÓVIL DINÁMICA
+       ========================================= -->
   <div class="mobile-list mobile-only">
-    <div class="list-item">
-      <div class="thumb"><img src="/images.jpg" alt=""></div>
-      <div class="info">
-        <div class="number">01</div>
-        <div class="label">NOMBRE INTEGRANTE</div>
+    @for (integrante of equipo; track integrante.id) {
+      <div class="list-item" (click)="abrirModal(integrante)">
+        <div class="thumb"><img [src]="integrante.imagen" [alt]="integrante.nombre"></div>
+        <div class="info">
+          <div class="number">{{ integrante.id }}</div>
+          <div class="label">{{ integrante.nombre }}</div>
+        </div>
       </div>
-    </div>
-    <div class="list-item">
-      <div class="thumb"><img src="/images.png" alt=""></div>
-      <div class="info">
-        <div class="number">02</div>
-        <div class="label">NOMBRE INTEGRANTE</div>
-      </div>
-    </div>
-    <div class="list-item">
-      <div class="thumb"><img src="/images1.jpg" alt=""></div>
-      <div class="info">
-        <div class="number">03</div>
-        <div class="label">NOMBRE INTEGRANTE</div>
-      </div>
-    </div>
-    <div class="list-item">
-      <div class="thumb"><img src="/images2.jpg" alt=""></div>
-      <div class="info">
-        <div class="number">04</div>
-        <div class="label">TU NOMBRE</div>
+    }
+  </div>
+</div>
+
+<!-- =========================================
+     MODAL DE PERFIL DEL INTEGRANTE
+     ========================================= -->
+@if (integranteSeleccionado) {
+  <div class="modal-overlay" (click)="cerrarModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      
+      <button class="close-btn" (click)="cerrarModal()">✕</button>
+
+      <div class="modal-body">
+        <div class="modal-image">
+          <img [src]="integranteSeleccionado.imagen" [alt]="integranteSeleccionado.nombre">
+        </div>
+        
+        <div class="modal-info">
+          <h2 class="modal-name">{{ integranteSeleccionado.nombre }}</h2>
+          <h4 class="modal-role">{{ integranteSeleccionado.rol }}</h4>
+          
+          <p class="modal-bio">{{ integranteSeleccionado.biografia }}</p>
+          
+          <div class="modal-section">
+            <h5>CONTRIBUCIÓN CLAVE</h5>
+            <p>{{ integranteSeleccionado.contribucion }}</p>
+          </div>
+
+          <div class="modal-section">
+            <h5>HERRAMIENTAS</h5>
+            <div class="tags-container">
+              <!-- Bucle para las etiquetas de herramientas -->
+              @for (tool of integranteSeleccionado.herramientas; track tool) {
+                <span class="tag">{{ tool }}</span>
+              }
+            </div>
+          </div>
+
+          <blockquote class="modal-quote">
+            {{ integranteSeleccionado.filosofia }}
+          </blockquote>
+        </div>
       </div>
     </div>
   </div>
-
-</div>
+}

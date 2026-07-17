@@ -6,6 +6,7 @@ $gray: rgba(255, 255, 255, 0.6);
 $border-light: rgba(255, 255, 255, 0.15);
 $glow: 0 0 20px rgba(255, 255, 255, 0.5);
 $transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+$neon-orange: #cc0000;
 
 /* ANIMACIÓN DE APARICIÓN */
 @keyframes pageReveal {
@@ -13,42 +14,24 @@ $transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
   100% { opacity: 1; filter: blur(0); transform: scale(1); }
 }
 
-/* RESETEO DEL HOST Y BODY */
+/* RESETEO DEL HOST */
 :host { display: block; width: 100%; min-height: 100vh; overflow-x: hidden; background: transparent !important; }
-html, body { margin: 0; padding: 0; width: 100%; min-height: 100vh; background-color: #000 !important; overflow-x: hidden !important; }
 
-/* FONDOS BLINDADOS (100vw) */
-.video-background, .overlay { position: fixed; top: 0; left: 0; width: 100vw !important; height: 100vh !important; z-index: 1; }
-.video-background { object-fit: cover; opacity: 0.3; filter: grayscale(100%); }
-.overlay { background: radial-gradient(circle at center, rgba(15,15,15,0.4) 0%, rgba(5,5,5,0.95) 100%); }
+/* (Los fondos .video-background y .overlay ahora viven en el styles.scss global) */
 
 /* =========================================
-   CONTENEDOR PRINCIPAL
+   CONTENEDOR PRINCIPAL Y CABECERA
    ========================================= */
 .transmedia-container { 
-  position: relative; 
-  width: 100%; 
-  max-width: 1400px; /* Alineación izquierda respetando márgenes */
-  margin: 0; 
-  min-height: 100vh;
-  padding: 3rem 5rem; 
-  display: flex; 
-  flex-direction: column; 
-  box-sizing: border-box; 
-  z-index: 2; 
-  background: transparent !important; 
-  animation: pageReveal 1.2s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+  position: relative; width: 100%; max-width: 1400px; margin: 0 auto; min-height: 100vh;
+  padding: 3rem 5rem; display: flex; flex-direction: column; box-sizing: border-box; z-index: 2; 
+  background: transparent !important; animation: pageReveal 1.2s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
 }
 
-/* VISIBILIDAD */
 .mobile-only { display: none !important; }
 .desktop-only { display: flex !important; }
 
-/* =========================================
-   CABECERA PC
-   ========================================= */
 .header { display: flex; justify-content: space-between; align-items: center; width: 100%; margin-bottom: 4rem; padding-bottom: 1.5rem; border-bottom: 1px solid $border-light; position: relative; z-index: 100; }
-.logo-pill { font-family: 'Cormorant Garamond', serif; letter-spacing: 3px; color: $white; font-size: 1.2rem; text-transform: uppercase; }
 .nav-pill { display: flex; gap: 2.5rem; pointer-events: auto; }
 .nav-pill a { color: $gray; text-decoration: none; font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; transition: $transition; position: relative; cursor: pointer; }
 .nav-pill a::before { content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); width: 1px; height: 16px; margin-top: 8px; background-color: transparent; transition: $transition; }
@@ -57,160 +40,202 @@ html, body { margin: 0; padding: 0; width: 100%; min-height: 100vh; background-c
 .nav-pill a:hover::before, .nav-pill a.active-link::before, .nav-pill a:hover::after, .nav-pill a.active-link::after { background-color: $white; }
 .nav-pill a.active-link::after { box-shadow: $glow; }
 
-/* =========================================
-   HERO PC
-   ========================================= */
-.hero { display: flex; justify-content: space-between; align-items: flex-end; width: 100%; margin-top: 2rem; background: transparent !important; }
+.hero { display: flex; justify-content: space-between; align-items: flex-end; width: 100%; margin-top: 1rem; background: transparent !important; }
 .title { font-family: 'Cormorant Garamond', serif; font-size: 6.5rem; font-weight: 300; line-height: 0.9; color: $white; margin: 0; text-transform: uppercase; }
 .hero-description p { color: $gray; max-width: 350px; line-height: 1.8; border-left: 1px solid $border-light; padding-left: 1.5rem; margin: 0; font-size: 1rem; }
 
 /* =========================================
-   GALERÍA DE IMÁGENES PC
+   GALERÍA: SUPERPOSICIÓN (OVERLAP) EXACTA
    ========================================= */
-.gallery { display: flex; justify-content: space-between; gap: 1.5rem; margin-top: 5rem; width: 100%; height: 280px; }
-.card { 
-  flex: 1; 
-  border: 2px solid transparent; 
-  overflow: hidden; 
-  position: relative; 
-  cursor: pointer; 
-  transition: $transition; 
-  background-color: #000;
-}
-.card img { 
-  width: 100%; 
-  height: 100%; 
-  object-fit: cover; 
-  opacity: 0.3; 
-  filter: grayscale(100%); 
-  transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), filter 0.6s ease, opacity 0.6s ease;
-}
-
-/* =========================================
-   MENÚ TIMELINE PC
-   ========================================= */
-.timeline-menu { 
-  position: relative; 
-  display: flex; 
-  justify-content: space-around; 
-  margin-top: 3rem; 
-  width: 100%; 
-  padding-top: 1.5rem;
-}
-.timeline-line { 
-  position: absolute; 
-  top: 0; 
-  left: 0; 
-  width: 100%; 
-  height: 1px; 
-  background: $border-light; 
-  z-index: 0; 
-}
-.menu-item { 
-  display: flex; 
-  flex-direction: column; 
+.gallery-asymmetric {
+  display: flex;
   align-items: center; 
-  position: relative; 
-  z-index: 1; 
-  cursor: pointer; 
+  width: 100%;
+  margin-top: 4rem;
 }
-.tick { 
-  width: 1px; 
-  height: 25px; 
-  background: $border-light; 
-  margin-top: -1.5rem; 
-  margin-bottom: 0.5rem;
-  transition: $transition; 
+
+.gallery-asymmetric .card {
+  border-radius: 20px;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  background-color: #111;
+  box-shadow: -15px 0 30px rgba(0, 0, 0, 0.7); 
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+  }
+
+  &:hover {
+    transform: translateY(-8px);
+    z-index: 10 !important; 
+    img { transform: scale(1.05); }
+  }
 }
-.number { 
-  font-family: 'Cormorant Garamond', serif; 
-  font-size: 1.2rem; 
-  color: $gray; 
-  border: 1px solid $border-light; 
-  border-radius: 50%; 
-  width: 45px; 
-  height: 45px; 
-  display: flex; justify-content: center; align-items: center; 
-  background: transparent; 
-  transition: $transition; 
-  margin-bottom: 1rem;
+
+.card-1 { flex: 3.5; height: 350px; z-index: 4; }
+.card-2 { flex: 3.0; height: 300px; z-index: 3; margin-left: -35px; } 
+.card-3 { flex: 2.2; height: 240px; z-index: 2; margin-left: -35px; } 
+.card-4 { flex: 1.6; height: 180px; z-index: 1; margin-left: -35px; } 
+
+/* =========================================
+   MENÚ HORIZONTAL: NÚMEROS REDUCIDOS Y CENTRADOS
+   ========================================= */
+.horizontal-menu {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin-top: 2rem;
 }
-.label { 
-  font-size: 0.7rem; 
-  color: $gray; 
-  letter-spacing: 2px; 
-  text-transform: uppercase; 
-  transition: $transition; 
+
+.horizontal-menu .menu-item {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Reducido un poco para que el número y texto se vean como un solo bloque */
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  min-width: 0; 
+}
+
+/* 
+  ALINEACIÓN MATEMÁTICA:
+  Al justificar al centro y sumar un padding-left igual al margin-left negativo,
+  logramos que el contenido quede exactamente en el medio de la porción VISIBLE de la imagen.
+*/
+.horizontal-menu .menu-item:nth-child(1) { flex: 3.5; justify-content: center; }
+.horizontal-menu .menu-item:nth-child(2) { flex: 3.0; justify-content: center; margin-left: -35px; padding-left: 35px; }
+.horizontal-menu .menu-item:nth-child(3) { flex: 2.2; justify-content: center; margin-left: -35px; padding-left: 35px; }
+.horizontal-menu .menu-item:nth-child(4) { flex: 1.6; justify-content: center; margin-left: -35px; padding-left: 35px; }
+
+.horizontal-menu .number {
+  font-family: 'Arial', sans-serif;
+  font-size: 3.8rem; /* <-- TAMAÑO REDUCIDO */
+  font-weight: 800;
+  color: #FF4500; 
+  line-height: 0.8;
+  letter-spacing: -2px;
+  transition: all 0.3s ease;
+  flex-shrink: 0; 
+}
+
+.horizontal-menu .label {
+  color: $white;
+  font-family: 'Arial', sans-serif;
+  font-size: 0.75rem; /* <-- LETRA LIGERAMENTE REDUCIDA PARA ARMONÍA */
+  font-weight: 700;
+  letter-spacing: 1px;
+  line-height: 1.3;
+  text-transform: uppercase;
+  text-align: left; /* El texto va a la izquierda, pero el bloque completo está centrado */
 }
 
 /* =========================================
-   INTERACCIÓN BIDIRECCIONAL (BLANCO PREMIUM)
+   INTERACCIÓN BIDIRECCIONAL SUTIL
    ========================================= */
-/* Hover sobre Menú -> Afecta a Card */
-.transmedia-container:has(.menu-1:hover) .card-1,
-.transmedia-container:has(.menu-2:hover) .card-2,
-.transmedia-container:has(.menu-3:hover) .card-3,
-.transmedia-container:has(.menu-4:hover) .card-4,
-.card:hover { 
-  border-color: $white; transform: translateY(-10px); box-shadow: $glow; 
-}
-.transmedia-container:has(.menu-1:hover) .card-1 img,
-.transmedia-container:has(.menu-2:hover) .card-2 img,
-.transmedia-container:has(.menu-3:hover) .card-3 img,
-.transmedia-container:has(.menu-4:hover) .card-4 img,
-.card:hover img { 
-  opacity: 1; filter: grayscale(0%); transform: scale(1.05); 
+.horizontal-menu .menu-item:hover {
+  transform: translateY(-5px);
+  .number { color: $white; text-shadow: 0 0 20px rgba(255, 69, 0, 0.6); }
 }
 
-/* Hover sobre Card -> Afecta a Menú */
-.transmedia-container:has(.card-1:hover) .menu-1 .number,
-.transmedia-container:has(.card-2:hover) .menu-2 .number,
-.transmedia-container:has(.card-3:hover) .menu-3 .number,
-.transmedia-container:has(.card-4:hover) .menu-4 .number,
-.menu-item:hover .number { 
-  border-color: $white; color: $white; box-shadow: $glow; background: rgba(255,255,255,0.1);
-}
-.transmedia-container:has(.card-1:hover) .menu-1 .tick,
-.transmedia-container:has(.card-2:hover) .menu-2 .tick,
-.transmedia-container:has(.card-3:hover) .menu-3 .tick,
-.transmedia-container:has(.card-4:hover) .menu-4 .tick,
-.menu-item:hover .tick { 
-  background: $white; box-shadow: $glow;
-}
-.transmedia-container:has(.card-1:hover) .menu-1 .label,
-.transmedia-container:has(.card-2:hover) .menu-2 .label,
-.transmedia-container:has(.card-3:hover) .menu-3 .label,
-.transmedia-container:has(.card-4:hover) .menu-4 .label,
-.menu-item:hover .label { 
-  color: $white; letter-spacing: 3px;
+.transmedia-container:has(.horizontal-menu .menu-item:nth-child(1):hover) .card-1,
+.transmedia-container:has(.horizontal-menu .menu-item:nth-child(2):hover) .card-2,
+.transmedia-container:has(.horizontal-menu .menu-item:nth-child(3):hover) .card-3,
+.transmedia-container:has(.horizontal-menu .menu-item:nth-child(4):hover) .card-4 {
+  transform: translateY(-8px);
+  z-index: 10 !important;
+  img { transform: scale(1.05); }
 }
 
+.transmedia-container:has(.card-1:hover) .horizontal-menu .menu-item:nth-child(1),
+.transmedia-container:has(.card-2:hover) .horizontal-menu .menu-item:nth-child(2),
+.transmedia-container:has(.card-3:hover) .horizontal-menu .menu-item:nth-child(3),
+.transmedia-container:has(.card-4:hover) .horizontal-menu .menu-item:nth-child(4) {
+  transform: translateY(-5px);
+  .number { color: $white; text-shadow: 0 0 20px rgba(255, 69, 0, 0.6); }
+}
 
 /* =========================================
-   VISTA MÓVIL (BLINDADA SIN CUADROS NEGROS)
+   RESTO DEL CÓDIGO (Línea de tiempo, Modal, Docs, Móvil)
    ========================================= */
+.timeline-view { width: 100%; display: flex; flex-direction: column; margin-top: 1rem; }
+.timeline-controls { display: flex; flex-direction: column; gap: 1rem; margin-bottom: 2rem; }
+.timeline-main-title { font-family: 'Cormorant Garamond', serif; font-size: 3rem; color: $white; margin: 0; font-weight: 300; }
+
+.btn-interactivo { margin-top: 2rem; padding: 1rem 2.5rem; background: transparent; color: $white; border: 1px solid $neon-orange; border-radius: 50px; font-family: 'Arial', sans-serif; font-size: 0.85rem; letter-spacing: 2px; cursor: pointer; transition: $transition; }
+.btn-interactivo:hover { background: $neon-orange; box-shadow: 0 0 15px rgba(204, 0, 0, 0.5); }
+.btn-back { width: max-content; background: transparent; border: none; color: $gray; font-size: 0.85rem; letter-spacing: 2px; cursor: pointer; transition: $transition; padding: 0; }
+.btn-back:hover { color: $neon-orange; transform: translateX(-5px); }
+
+.timeline-scroll-wrapper { width: 100%; overflow-x: auto; overflow-y: hidden; padding: 2rem 0 4rem 0; scrollbar-width: thin; scrollbar-color: $neon-orange rgba(255,255,255,0.05); }
+.timeline-scroll-wrapper::-webkit-scrollbar { height: 8px; }
+.timeline-scroll-wrapper::-webkit-scrollbar-thumb { background: $neon-orange; border-radius: 10px; }
+.timeline-track { display: flex; align-items: center; position: relative; height: 500px; min-width: max-content; padding: 0 3rem; }
+.timeline-line-map { position: absolute; top: 50%; left: 0; width: 100%; height: 2px; background: rgba(255, 255, 255, 0.2); box-shadow: 0 0 10px rgba(204, 0, 0, 0.4); transform: translateY(-50%); }
+
+.timeline-node { position: relative; width: 280px; height: 100%; display: flex; justify-content: center; align-items: center; }
+.timeline-dot { width: 20px; height: 20px; border-radius: 50%; background: $neon-orange; border: 4px solid #111; box-shadow: 0 0 15px $neon-orange; z-index: 2; transition: $transition; cursor: pointer; }
+.timeline-node:hover .timeline-dot { transform: scale(1.5); }
+
+.timeline-content { position: absolute; width: 220px; text-align: center; background: rgba(15, 15, 15, 0.8); backdrop-filter: blur(10px); border: 1px solid $border-light; border-radius: 16px; padding: 1.5rem; transition: $transition; opacity: 0.7; }
+.timeline-node:hover .timeline-content { opacity: 1; transform: scale(1.05); border-color: $gray; z-index: 10; }
+.is-top .timeline-content { bottom: 55%; border-bottom: 3px solid $neon-orange; }
+.is-bottom .timeline-content { top: 55%; border-top: 3px solid $neon-orange; }
+
+.year { font-family: 'Impact', sans-serif; font-size: 2.5rem; color: rgba(255,255,255,0.15); line-height: 1; margin-bottom: -1rem; position: relative; z-index: 0; }
+.photo-wrapper { width: 90px; height: 90px; margin: 0 auto 1rem auto; border-radius: 50%; border: 2px solid $gray; overflow: hidden; position: relative; z-index: 1; }
+.photo-wrapper img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(100%); transition: $transition; }
+.timeline-node:hover .photo-wrapper img { filter: grayscale(0%); }
+
+.timeline-content h3 { color: $white; font-size: 1.1rem; text-transform: uppercase; margin: 0 0 5px 0; font-weight: 800; }
+.country { color: $gray; font-size: 0.8rem; margin: 0 0 10px 0; letter-spacing: 2px; text-transform: uppercase; }
+.medals { color: $neon-orange; font-size: 0.85rem; font-weight: bold; margin: 0; }
+
+.timeline-modal-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0, 0, 0, 0.9); backdrop-filter: blur(10px); z-index: 9999; display: flex; justify-content: center; align-items: center; animation: fadeIn 0.3s ease; }
+.timeline-modal-content { background: rgba(15, 15, 15, 0.95); border: 1px solid $neon-orange; border-radius: 20px; width: 90%; max-width: 600px; padding: 3.5rem 3rem; position: relative; text-align: center; box-shadow: 0 0 40px rgba(204, 0, 0, 0.3); overflow: hidden; animation: zoomIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
+@keyframes zoomIn { from { opacity: 0; transform: scale(0.6); } to { opacity: 1; transform: scale(1); } }
+.modal-year-bg { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-family: 'Impact', sans-serif; font-size: 15rem; color: rgba(255, 255, 255, 0.03); z-index: 0; pointer-events: none; }
+.modal-photo { width: 120px; height: 120px; margin: 0 auto 1.5rem auto; border-radius: 50%; border: 3px solid $neon-orange; overflow: hidden; position: relative; z-index: 1; box-shadow: 0 0 20px rgba(204, 0, 0, 0.5); }
+.modal-photo img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(20%); }
+.modal-title { color: $white; font-size: 1.5rem; text-transform: uppercase; margin: 0 0 1.5rem 0; font-weight: 800; position: relative; z-index: 1; letter-spacing: 1px; line-height: 1.3; }
+.modal-detail { color: $gray; font-size: 1.1rem; line-height: 1.7; margin: 0; position: relative; z-index: 1; font-family: 'Arial', sans-serif; }
+
+.documental-view { width: 100%; display: flex; flex-direction: column; margin-top: 1rem; }
+.doc-controls { margin-bottom: 2rem; }
+.doc-layout { display: flex; gap: 3rem; align-items: center; width: 100%; flex-direction: column; text-align: center; }
+.doc-info { width: 100%; max-width: 800px; display: flex; flex-direction: column; align-items: center; gap: 1.5rem; }
+.doc-kicker { color: $neon-orange; font-size: 0.9rem; letter-spacing: 4px; margin: 0; font-weight: bold; }
+.doc-title { font-family: 'Impact', sans-serif; font-size: 4.5rem; color: $white; margin: 0; line-height: 0.9; letter-spacing: 1px; }
+.doc-metadata { display: flex; align-items: center; justify-content: center; gap: 1rem; color: $gray; font-family: 'Arial', sans-serif; font-size: 0.9rem; font-weight: bold; }
+.separator { color: rgba(255,255,255,0.2); }
+.tag-hd { border: 1px solid $gray; padding: 2px 6px; border-radius: 4px; font-size: 0.7rem; }
+.doc-synopsis { color: rgba(255,255,255,0.8); font-size: 1.1rem; line-height: 1.8; width: 100%; margin: 0 auto; border-top: 2px solid $neon-orange; padding: 1.5rem 0; }
+.doc-credits { color: $gray; font-size: 0.9rem; line-height: 1.6; }
+.doc-credits strong { color: $white; }
+.doc-credits p { margin: 5px 0; }
+.doc-player-container { width: 100%; max-width: 1000px; position: relative; border-radius: 12px; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.8); aspect-ratio: 16 / 9; border: 1px solid $border-light; background-color: #000; transition: $transition; }
+.doc-video { width: 100%; height: 100%; object-fit: contain; outline: none; }
+.doc-player-container:hover { box-shadow: 0 20px 50px rgba(204, 0, 0, 0.3); border-color: rgba(204, 0, 0, 0.5); }
+
 @media (max-width: 768px) {
-  
   .desktop-only { display: none !important; }
   .mobile-only { display: flex !important; }
-
   .transmedia-container { padding: 2rem 1.5rem !important; width: 100% !important; max-width: 100% !important; background: transparent !important; }
-
-  .header { flex-direction: column !important; align-items: center !important; gap: 1.5rem !important; width: 100% !important; margin-bottom: 3.5rem !important; border-bottom: none !important; padding-bottom: 0 !important; background: transparent !important; }
-  .logo-pill { width: 100% !important; font-size: 1.3rem !important; text-align: center !important; }
+  .header { flex-direction: column !important; align-items: center !important; gap: 1.5rem !important; width: 100% !important; margin-bottom: 3.5rem !important; border-bottom: none !important; padding-bottom: 0 !important; }
   .nav-pill { width: 100% !important; display: flex !important; justify-content: center !important; gap: 1.5rem !important; flex-wrap: wrap !important; }
   .nav-pill a { font-size: 0.75rem !important; color: $gray !important; }
   .nav-pill a::before, .nav-pill a::after { display: none !important; } 
-
-  .hero { flex-direction: column !important; align-items: center !important; text-align: center !important; width: 100% !important; gap: 2rem !important; background: transparent !important; }
-  .hero-content, .hero-description { width: 100% !important; background: transparent !important; } 
+  .hero { flex-direction: column !important; align-items: center !important; text-align: center !important; width: 100% !important; gap: 2rem !important; }
   .title { font-size: 3.5rem !important; width: 100% !important; line-height: 1.1 !important; text-align: center !important; }
   .hero-description p { text-align: center !important; margin: 0 auto !important; border-left: none !important; border-top: 1px solid $border-light !important; padding: 1.5rem 0 0 0 !important; max-width: 100% !important; }
 
-  .mobile-list { flex-direction: column !important; gap: 1.5rem !important; margin-top: 4rem !important; width: 100% !important; background: transparent !important; }
+  .mobile-list { flex-direction: column !important; gap: 1.5rem !important; margin-top: 4rem !important; width: 100% !important; }
   .list-item { display: flex !important; align-items: center; gap: 1.5rem; padding: 1rem; border: 1px solid $border-light; transition: $transition; background: rgba(255,255,255,0.02); width: 100%; box-sizing: border-box; cursor: pointer; }
   .thumb { width: 85px; height: 85px; border: 1px solid $border-light; overflow: hidden; flex-shrink: 0; }
-  .thumb img { width: 100%; height: 100%; object-fit: cover; opacity: 0.2; filter: grayscale(100%); transition: $transition; }
+  .thumb img { width: 100%; height: 100%; object-fit: cover; opacity: 1; filter: none; transition: $transition; }
   .info { display: flex; flex-direction: column; gap: 0.5rem; }
   .info .number { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; color: $gray; border: 1px solid $border-light; border-radius: 50%; width: 40px; height: 40px; display: flex; justify-content: center; align-items: center; transition: $transition; }
   .info .label { font-size: 0.65rem; color: $gray; letter-spacing: 2px; text-transform: uppercase; transition: $transition; }
@@ -219,4 +244,72 @@ html, body { margin: 0; padding: 0; width: 100%; min-height: 100vh; background-c
   .list-item:active .thumb img, .list-item:hover .thumb img { opacity: 1; filter: grayscale(0%); transform: scale(1.1); }
   .list-item:active .info .number, .list-item:hover .info .number { border-color: $white; color: $white; box-shadow: $glow; background: rgba(255,255,255,0.1); }
   .list-item:active .info .label, .list-item:hover .info .label { color: $white; letter-spacing: 3px; }
+
+  .timeline-main-title { font-size: 2.2rem; text-align: center; }
+  .timeline-controls { align-items: center; }
+  .timeline-scroll-wrapper { padding: 1rem 0 2rem 0; }
+  .timeline-track { height: 450px; padding: 0 1.5rem; }
+  .timeline-node { width: 220px; }
+  .timeline-content { width: 180px; padding: 1rem; }
+  .year { font-size: 2rem; }
+  .photo-wrapper { width: 70px; height: 70px; }
+
+  .doc-layout { flex-direction: column; gap: 2rem; }
+  .doc-title { font-size: 3.5rem; }
+  .doc-info { width: 100%; padding: 0 1rem; box-sizing: border-box; }
+  .doc-synopsis { max-width: 100%; font-size: 1rem; }
+  .doc-player-container { width: 100%; border-radius: 0; border-left: none; border-right: none; }
+}
+
+/* =========================================
+   LOGO KLANDESTINO (IDENTIDAD EXACTA)
+   ========================================= */
+.klandestino-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none; /* Evita que el enlace se subraye */
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.klandestino-brand:hover {
+  transform: scale(1.05); /* Efecto interactivo al pasar el mouse */
+}
+
+.brand-title {
+  font-family: 'Impact', 'Arial Black', sans-serif;
+  font-size: 3.5rem; /* Letras grandes y pesadas */
+  color: $white;
+  letter-spacing: 1px;
+  line-height: 0.9;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.brand-i {
+  position: relative;
+  display: inline-block;
+}
+
+/* El truco mágico: Un cuadrado rojo perfecto sobre la parte alta de la "I" */
+.brand-i::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 26%; /* Altura del punto rojo */
+  background-color: $neon-orange; /* Rojo Klandestino (#cc0000) */
+}
+
+.brand-sub {
+  font-family: 'Arial', sans-serif;
+  font-size: 0.85rem;
+  color: $neon-orange;
+  letter-spacing: 9px; /* Muy separado, como en tu imagen */
+  margin-top: 2px;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-right: -9px; /* Truco para centrar perfecto compensando el espaciado extra del final */
 }

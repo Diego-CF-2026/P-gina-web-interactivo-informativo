@@ -37,3 +37,189 @@ html, body {
   -webkit-tap-highlight-color: transparent;
   outline: none;
 }
+
+/* Aquí arriba tendrás tus importaciones, fuentes o reset globales que ya tenías */
+
+/* =========================================
+   LOGO KLANDESTINO GLOBAL
+   ========================================= */
+.klandestino-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transform: scale(1); /* Asegura que no haya escalas raras */
+}
+
+.brand-title {
+  font-family: 'Impact', 'Arial Black', sans-serif;
+  font-size: 2.2rem; /* <-- Tamaño reducido y unificado para el header */
+  color: #ffffff; 
+  margin: 0;
+  letter-spacing: 0.5px;
+  line-height: 0.85;
+}
+
+.brand-i {
+  position: relative;
+  display: inline-block;
+}
+
+.brand-i::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 24%;
+  background-color: #cc0000;
+}
+
+.brand-sub {
+  font-family: 'Arial', sans-serif;
+  font-size: 0.75rem;
+  color: #cc0000;
+  margin: 0;
+  margin-top: 4px;
+  letter-spacing: 5px;
+  margin-right: -5px; /* Compensa el espaciado para que quede bien centrado */
+}
+
+/* Ajuste móvil global para el logo */
+@media (max-width: 768px) {
+  .klandestino-brand {
+    transform: scale(0.85); /* Un poco más pequeño en celular */
+    margin-bottom: 0.5rem;
+  }
+}
+
+/* VARIABLES GLOBALES */
+$border-light: rgba(255, 255, 255, 0.15);
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100vh;
+  background-color: #000;
+  overflow-x: hidden;
+}
+
+/* VIDEO PERSISTENTE Y BLINDADO */
+.video-background, .overlay { 
+  position: fixed; 
+  top: 0; 
+  left: 0; 
+  width: 100vw !important; 
+  height: 100vh !important; 
+  z-index: 1; /* Detrás de todo */
+  pointer-events: none; /* Para que no interfiera con los clics */
+}
+
+.video-background {
+  object-fit: cover;
+  opacity: 0.3;
+  filter: grayscale(100%);
+}
+
+.overlay {
+  background: radial-gradient(circle at center, rgba(15,15,15,0.4) 0%, rgba(5,5,5,0.95) 100%);
+  z-index: 2; /* Encima del video, debajo del contenido */
+}
+
+/* ELIMINAR EL CUADRO AZUL DE TOQUE EN CELULARES */
+* {
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+}
+
+/* Aquí arriba tendrás tus importaciones, fuentes o reset globales que ya tenías */
+
+/* =========================================
+   LOGO KLANDESTINO GLOBAL
+   ========================================= */
+.klandestino-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transform: scale(1); /* Asegura que no haya escalas raras */
+}
+
+.brand-title {
+  font-family: 'Impact', 'Arial Black', sans-serif;
+  font-size: 2.2rem; /* <-- Tamaño reducido y unificado para el header */
+  color: #ffffff; 
+  margin: 0;
+  letter-spacing: 0.5px;
+  line-height: 0.85;
+}
+
+.brand-i {
+  position: relative;
+  display: inline-block;
+}
+
+.brand-i::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 24%;
+  background-color: #cc0000;
+}
+
+.brand-sub {
+  font-family: 'Arial', sans-serif;
+  font-size: 0.75rem;
+  color: #cc0000;
+  margin: 0;
+  margin-top: 4px;
+  letter-spacing: 5px;
+  margin-right: -5px; /* Compensa el espaciado para que quede bien centrado */
+}
+
+/* Ajuste móvil global para el logo */
+@media (max-width: 768px) {
+  .klandestino-brand {
+    transform: scale(0.85); /* Un poco más pequeño en celular */
+    margin-bottom: 0.5rem;
+  }
+}
+
+/* =========================================
+   FONDO CINEMÁTICO GLOBAL (KLANDESTINO)
+   ========================================= */
+body, html {
+  background-color: #000 !important;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+}
+
+.video-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  opacity: 0.3; /* Mantiene el video de fondo muy sutil */
+  filter: grayscale(100%);
+  background-color: #111;
+  z-index: 1;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  /* Oscuridad profunda con un degradado sutil */
+  background: radial-gradient(circle at center, rgba(15,15,15,0.7) 0%, rgba(5,5,5,0.98) 100%);
+  z-index: 1;
+}
