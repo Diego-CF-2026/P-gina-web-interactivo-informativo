@@ -14,6 +14,9 @@ $neon-orange: #cc0000; /* <-- Ajustado al rojo corporativo exacto de Klandestino
   100% { opacity: 1; filter: blur(0); transform: scale(1); }
 }
 
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes slideUp { from { opacity: 0; transform: translateY(30px) scale(0.95); } to { opacity: 1; transform: translateY(0) scale(1); } }
+
 :host { display: block; width: 100%; min-height: 100vh; overflow-x: hidden; background: transparent !important; }
 
 /* =========================================
@@ -43,13 +46,34 @@ $neon-orange: #cc0000; /* <-- Ajustado al rojo corporativo exacto de Klandestino
    ========================================= */
 .header { display: flex; justify-content: space-between; align-items: center; width: 100%; margin-bottom: 4rem; padding-bottom: 1.5rem; border-bottom: 1px solid $border-light; position: relative; z-index: 100; }
 
-.nav-pill { display: flex; gap: 2.5rem; pointer-events: auto; }
-.nav-pill a { color: $gray; text-decoration: none; font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; transition: $transition; position: relative; cursor: pointer; }
-.nav-pill a::before { content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); width: 1px; height: 16px; margin-top: 8px; background-color: transparent; transition: $transition; }
-.nav-pill a::after { content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); width: 5px; height: 5px; border-radius: 50%; margin-top: 24px; background-color: transparent; transition: $transition; }
-.nav-pill a:hover, .nav-pill a.active-link { color: $white; text-shadow: 0 0 10px rgba(255,255,255,0.5); }
-.nav-pill a:hover::before, .nav-pill a.active-link::before, .nav-pill a:hover::after, .nav-pill a.active-link::after { background-color: $white; }
-.nav-pill a.active-link::after { box-shadow: $glow; }
+/* =========================================
+   MENÚ DE NAVEGACIÓN (UNIFICADO PARA TODAS LAS VISTAS)
+   ========================================= */
+.nav-pill { 
+  display: flex; gap: 2.5rem; pointer-events: auto; 
+}
+
+.nav-pill a { 
+  font-family: 'Arial', sans-serif !important; /* Obligamos a que use una fuente limpia sin adornos */
+  color: rgba(255, 255, 255, 0.6) !important; 
+  text-decoration: none !important; 
+  font-size: 0.8rem !important; 
+  font-weight: bold !important; /* Grosor unificado */
+  letter-spacing: 2px !important; 
+  text-transform: uppercase !important; /* Siempre mayúsculas, sin importar el HTML */
+  transition: all 0.4s ease; 
+  position: relative; 
+  cursor: pointer; 
+}
+
+/* El efecto de la rayita y el punto */
+.nav-pill a::before { content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); width: 1px; height: 16px; margin-top: 8px; background-color: transparent; transition: all 0.4s ease; }
+.nav-pill a::after { content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); width: 5px; height: 5px; border-radius: 50%; margin-top: 24px; background-color: transparent; transition: all 0.4s ease; }
+
+/* Estado Activo y Hover */
+.nav-pill a:hover, .nav-pill a.active-link { color: #ffffff !important; text-shadow: 0 0 10px rgba(255,255,255,0.5); }
+.nav-pill a:hover::before, .nav-pill a.active-link::before, .nav-pill a:hover::after, .nav-pill a.active-link::after { background-color: #ffffff; }
+.nav-pill a.active-link::after { box-shadow: 0 0 20px rgba(255, 255, 255, 0.5); }
 
 .hero { display: flex; justify-content: space-between; align-items: flex-end; width: 100%; margin-top: 2rem; background: transparent !important; }
 .title { font-family: 'Cormorant Garamond', serif; font-size: 6.5rem; font-weight: 300; line-height: 0.9; color: $white; margin: 0; text-transform: uppercase; }
@@ -170,9 +194,6 @@ $neon-orange: #cc0000; /* <-- Ajustado al rojo corporativo exacto de Klandestino
   color: $gray; border-left: 2px solid $neon-orange; padding-left: 1rem; margin: 1rem 0 0 0;
 }
 
-@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-@keyframes slideUp { from { opacity: 0; transform: translateY(30px) scale(0.95); } to { opacity: 1; transform: translateY(0) scale(1); } }
-
 /* =========================================
    VISTA MÓVIL (LIMPIA E INTERACTIVA)
    ========================================= */
@@ -181,22 +202,42 @@ $neon-orange: #cc0000; /* <-- Ajustado al rojo corporativo exacto de Klandestino
   .desktop-only { display: none !important; }
   .mobile-only { display: flex !important; }
 
+  /* En la sección móvil de todos tus archivos .scss */
+  .brand-title { 
+    font-size: 3.5rem !important; /* ¡Restaurado a su tamaño gigante único! */
+    text-align: center !important; 
+    letter-spacing: 0 !important; /* Evita que las letras se desborden de la pantalla en móviles muy pequeños */
+  }
+
   .transmedia-container { padding: 2rem 1.5rem !important; width: 100% !important; max-width: 100% !important; background: transparent !important; }
 
   .header { flex-direction: column !important; align-items: center !important; gap: 1.5rem !important; width: 100% !important; margin-bottom: 3.5rem !important; border-bottom: none !important; padding-bottom: 0 !important; background: transparent !important; }
   
-  .nav-pill { width: 100% !important; display: flex !important; justify-content: center !important; gap: 1.5rem !important; flex-wrap: wrap !important; }
-  .nav-pill a { font-size: 0.75rem !important; color: $gray !important; }
-  .nav-pill a::before, .nav-pill a::after { display: none !important; } 
+/* Menú unificado para celulares */
+  .nav-pill { 
+    display: flex !important; 
+    flex-direction: column !important; 
+    align-items: center !important; 
+    gap: 1.2rem !important; 
+    width: 100% !important; 
+  }
+  .nav-pill a { 
+    font-size: 0.85rem !important; 
+    letter-spacing: 3px !important; 
+  }
+  /* En celular ocultamos la rayita y el punto para ahorrar espacio */
+  .nav-pill a::before, .nav-pill a::after { display: none !important; }
 
   .hero { flex-direction: column !important; align-items: center !important; text-align: center !important; width: 100% !important; gap: 2rem !important; background: transparent !important; }
   
   .title { 
-    font-size: clamp(2.2rem, 11vw, 3.2rem) !important; 
     width: 100% !important; 
-    line-height: 1.1 !important; 
     text-align: center !important; 
     word-break: break-word !important; 
+    font-size: 2.2rem !important;
+    word-wrap: break-word !important;
+    line-height: 1.2 !important;
+    hyphens: auto !important; /* Evita que las palabras se corten feo */
   }
   
   .hero-description p { text-align: center !important; margin: 0 auto !important; border-left: none !important; border-top: 1px solid $border-light !important; padding: 1.5rem 0 0 0 !important; max-width: 100% !important; }
@@ -245,9 +286,7 @@ $neon-orange: #cc0000; /* <-- Ajustado al rojo corporativo exacto de Klandestino
 
 .brand-title {
   font-family: 'Impact', 'Arial Black', sans-serif;
-  font-size: 3.5rem; 
   color: #ffffff;
-  letter-spacing: 1px;
   line-height: 0.9;
   margin: 0;
   text-transform: uppercase;

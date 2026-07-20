@@ -27,7 +27,7 @@ export class NosotrosComponent {
       id: '01',
       nombre: 'MARÍA PÉREZ',
       rol: 'Dirección del Documental',
-      imagen: '/Integrante1.jpeg',
+      imagen: '/Integrante 1.jpg',
       biografia: 'Estudiante de comunicación audiovisual apasionada por el storytelling social y la narrativa documental.',
       contribucion: 'Dirigió las entrevistas en Santiago y estructuró el guion narrativo principal del documental.',
       herramientas: ['Premiere Pro', 'DaVinci Resolve', 'Cámaras Sony'],
@@ -38,7 +38,7 @@ export class NosotrosComponent {
       id: '02',
       nombre: 'LUIS GÓMEZ',
       rol: 'Producción de Podcast',
-      imagen: '/Integrante1.jpeg',
+      imagen: '/Integrante 2.jpg',
       biografia: 'Especialista en diseño sonoro y locución, buscando siempre la inmersión a través del audio.',
       contribucion: 'Grabación, limpieza de audio y musicalización de los 5 episodios del podcast en Spotify.',
       herramientas: ['Audition', 'Pro Tools', 'Micrófonos Rode'],
@@ -49,7 +49,7 @@ export class NosotrosComponent {
       id: '03',
       nombre: 'ANA SOFÍA',
       rol: 'Estrategia en TikToks',
-      imagen: '/Integrante1.jpeg',
+      imagen: '/Integrante 3.png',
       biografia: 'Creadora de contenido digital enfocada en formatos verticales y métricas de alcance orgánico.',
       contribucion: 'Planificó el calendario de contenidos y editó las cápsulas virales del entrenamiento.',
       herramientas: ['CapCut', 'Illustrator', 'Métricas de RRSS'],
@@ -58,9 +58,9 @@ export class NosotrosComponent {
     },
     {
       id: '04',
-      nombre: 'TU NOMBRE',
+      nombre: 'CARLOS RAMÍREZ',
       rol: 'Desarrollo Web Interactivo',
-      imagen: '/Integrante1.jpeg',
+      imagen: '/Integrante 4.png',
       biografia: 'Estudiante de décimo ciclo de ingeniería, enfocado en el desarrollo full-stack y la creación de ecosistemas digitales inmersivos.',
       contribucion: 'Arquitectura y desarrollo de la plataforma web en Angular para unificar todos los formatos del Universo Transmedia.',
       herramientas: ['Angular', 'TypeScript', 'Java', 'Spring Boot', 'MySQL'],
@@ -73,11 +73,11 @@ export class NosotrosComponent {
 
   abrirModal(integrante: TeamMember) {
     this.integranteSeleccionado = integrante;
-    document.body.style.overflow = 'hidden'; 
+    document.body.style.overflow = 'hidden';
   }
 
   cerrarModal() {
     this.integranteSeleccionado = undefined;
-    document.body.style.overflow = 'auto'; 
+    document.body.style.overflow = 'auto';
   }
 }

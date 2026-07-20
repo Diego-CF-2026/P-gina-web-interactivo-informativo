@@ -1,5 +1,5 @@
 /* =========================================
-   VARIABLES BASE
+   VARIABLES Y CONFIGURACIÓN BASE
    ========================================= */
 $white: #ffffff;
 $gray: rgba(255, 255, 255, 0.6);
@@ -8,194 +8,179 @@ $glow: 0 0 20px rgba(255, 255, 255, 0.5);
 $transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
 $neon-orange: #cc0000;
 
-/* ANIMACIÓN */
-.fade-in { animation: fadeIn 0.8s cubic-bezier(0.25, 0.8, 0.25, 1) forwards; }
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px) scale(0.98); }
-  to { opacity: 1; transform: translateY(0) scale(1); }
+/* ANIMACIÓN DE APARICIÓN EXACTA DE 'HOME' */
+@keyframes pageReveal {
+  0% { opacity: 0; filter: blur(5px); transform: scale(0.98); }
+  100% { opacity: 1; filter: none; transform: none; }
 }
 
-/* RESETEO DEL COMPONENTE */
 :host { display: block; width: 100%; min-height: 100vh; overflow-x: hidden; background: transparent !important; }
+
+/* =========================================
+   CONTENEDOR PRINCIPAL
+   ========================================= */
+.transmedia-container { 
+  position: relative; 
+  width: 100%; 
+  max-width: 1400px; 
+  margin: 0 auto; 
+  min-height: 100vh;
+  padding: 3rem 5rem; 
+  display: flex; 
+  flex-direction: column; 
+  box-sizing: border-box; 
+  z-index: 2; 
+  background: transparent !important; 
+  animation: pageReveal 1.2s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+  transform-origin: center 40vh;
+}
+
+/* CLASES DE VISIBILIDAD */
+.mobile-only { display: none !important; }
 .desktop-only { display: flex !important; }
 
-/* (Los fondos .video-background y .overlay ahora viven en el styles.scss global) */
-
-.transmedia-container { 
-  position: relative; width: 100%; max-width: 1400px; margin: 0 auto; min-height: 100vh;
-  padding: 3rem 5rem 6rem 5rem; display: flex; flex-direction: column; box-sizing: border-box; z-index: 2; 
-}
+/* =========================================
+   ESTILOS ESCRITORIO (PC)
+   ========================================= */
+.header { display: flex; justify-content: space-between; align-items: center; width: 100%; margin-bottom: 4rem; padding-bottom: 1.5rem; border-bottom: 1px solid $border-light; position: relative; z-index: 100; }
 
 /* =========================================
-   HEADER Y LOGO
+   MENÚ DE NAVEGACIÓN
    ========================================= */
-.header { display: flex; justify-content: space-between; align-items: center; width: 100%; margin-bottom: 3rem; padding-bottom: 1.5rem; border-bottom: 1px solid $border-light; }
 .nav-pill { display: flex; gap: 2.5rem; pointer-events: auto; }
-.nav-pill a { color: $gray; text-decoration: none; font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; transition: $transition; position: relative; cursor: pointer; }
-.nav-pill a::before { content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); width: 1px; height: 16px; margin-top: 8px; background-color: transparent; transition: $transition; }
-.nav-pill a::after { content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); width: 5px; height: 5px; border-radius: 50%; margin-top: 24px; background-color: transparent; transition: $transition; }
-.nav-pill a:hover, .nav-pill a.active-link { color: $white; text-shadow: 0 0 10px rgba(255,255,255,0.5); }
-.nav-pill a:hover::before, .nav-pill a.active-link::before, .nav-pill a:hover::after, .nav-pill a.active-link::after { background-color: $white; }
-.nav-pill a.active-link::after { box-shadow: $glow; }
 
+.nav-pill a { 
+  font-family: 'Arial', sans-serif !important; 
+  color: rgba(255, 255, 255, 0.6) !important; 
+  text-decoration: none !important; 
+  font-size: 0.8rem !important; 
+  font-weight: bold !important; 
+  letter-spacing: 2px !important; 
+  text-transform: uppercase !important; 
+  transition: all 0.4s ease; 
+  position: relative; 
+  cursor: pointer; 
+}
+
+.nav-pill a::before { content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); width: 1px; height: 16px; margin-top: 8px; background-color: transparent; transition: all 0.4s ease; }
+.nav-pill a::after { content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); width: 5px; height: 5px; border-radius: 50%; margin-top: 24px; background-color: transparent; transition: all 0.4s ease; }
+
+.nav-pill a:hover, .nav-pill a.active-link { color: #ffffff !important; text-shadow: 0 0 10px rgba(255,255,255,0.5); }
+.nav-pill a:hover::before, .nav-pill a.active-link::before, .nav-pill a:hover::after, .nav-pill a.active-link::after { background-color: #ffffff; }
+.nav-pill a.active-link::after { box-shadow: 0 0 20px rgba(255, 255, 255, 0.5); }
+
+/* =========================================
+   LOGO KLANDESTINO
+   ========================================= */
 .klandestino-brand { display: flex; flex-direction: column; align-items: center; text-decoration: none; cursor: pointer; transition: transform 0.3s ease; }
 .klandestino-brand:hover { transform: scale(1.05); }
-.brand-title { font-family: 'Impact', 'Arial Black', sans-serif; font-size: 3.5rem; color: $white; letter-spacing: 1px; line-height: 0.9; margin: 0; text-transform: uppercase; }
+
+.brand-title {
+  font-family: 'Impact', 'Arial Black', sans-serif !important;
+  font-size: 2.2rem !important; 
+  font-weight: normal !important; 
+  color: #ffffff !important;
+  line-height: 0.9 !important;
+  margin: 0 !important;
+  text-transform: uppercase !important;
+  -webkit-font-smoothing: antialiased;
+}
+
 .brand-i { position: relative; display: inline-block; }
-.brand-i::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 26%; background-color: $neon-orange; }
-.brand-sub { font-family: 'Arial', sans-serif; font-size: 0.85rem; color: $neon-orange; letter-spacing: 9px; margin-top: 2px; text-transform: uppercase; font-weight: 700; margin-right: -9px; }
+.brand-i::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 26%; background-color: #cc0000; }
+.brand-sub { font-family: 'Arial', sans-serif !important; font-size: 0.85rem !important; color: #cc0000 !important; letter-spacing: 9px !important; margin-top: 2px !important; text-transform: uppercase !important; font-weight: 700 !important; margin-right: -9px !important; }
 
 /* =========================================
-   PORTAFOLIO HEADER
+   PORTAFOLIO - TÍTULO Y TARJETAS
    ========================================= */
-.portfolio-header { text-align: center; margin-bottom: 4rem; margin-top: 2rem; }
-.portfolio-title { font-family: 'Cormorant Garamond', serif; font-size: 4.5rem; font-weight: 300; line-height: 1; color: $white; margin: 0 0 1rem 0; text-transform: uppercase; letter-spacing: 2px; }
-.portfolio-description { color: $gray; font-family: 'Arial', sans-serif; font-size: 1.1rem; max-width: 600px; margin: 0 auto; line-height: 1.6; }
+.portfolio-header { text-align: center; margin-bottom: 4rem; }
+.portfolio-title { font-family: 'Times New Roman', Times, serif; font-size: 4rem; color: $white; margin: 0 0 1rem 0; text-transform: uppercase; letter-spacing: 2px; }
+.portfolio-description { color: $gray; font-size: 1.1rem; max-width: 600px; margin: 0 auto; line-height: 1.6; }
 
-/* =========================================
-   GRILLA DE PROYECTOS (CATÁLOGO)
-   ========================================= */
-.projects-grid {
-  display: grid;
-  /* Crea columnas automáticas que se adaptan a la pantalla. Mínimo 300px, máximo 1fr */
-  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-  gap: 2.5rem;
-  width: 100%;
-}
+.projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 3rem; width: 100%; }
 
-/* 1. Darle una altura mínima a la tarjeta para que respire el contenido */
-.project-card {
-  position: relative;
-  overflow: hidden;
-  min-height: 350px; /* Ajusta este valor si necesitas más espacio */
-  border-radius: 12px;
-  display: block; /* Importante para la etiqueta <a> de T1 */
-  transition: transform 0.3s ease;
-  /* (Conserva los demás estilos de borde o sombras que ya tenías) */
-}
-
-.project-card img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  opacity: 0.6; /* Un poco oscuras por defecto */
-  filter: grayscale(40%);
-  transition: all 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
-}
-
-/* 2. Hacer que el overlay ocupe toda la tarjeta y empuje el texto hacia abajo */
-.project-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end; /* Alinea el texto en la parte inferior */
-  padding: 30px 25px 45px 25px;
-  box-sizing: border-box;
-  
-  /* Un degradado más alto y oscuro para que el texto blanco se lea perfecto */
-  background: linear-gradient(
-    to top, 
-    rgba(0,0,0, 0.95) 0%, 
-    rgba(0,0,0, 0.7) 60%, 
-    transparent 100%
-  );
-}
-
-.project-category {
-  color: $neon-orange;
-  font-family: 'Arial', sans-serif;
-  font-size: 0.75rem;
-  font-weight: 800;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  margin-bottom: 0.5rem;
-}
-
-.project-name {
-  color: $white;
-  font-family: 'Arial', sans-serif;
-  font-size: 1.8rem;
-  font-weight: 800;
-  margin: 0 0 0.5rem 0;
-  line-height: 1.1;
-  text-shadow: 0 2px 10px rgba(0,0,0,0.8);
-}
-
-/* 3. Asegurar que el texto no tenga restricciones que lo corten */
-.project-summary {
-  font-size: 0.9rem;
-  line-height: 1.6;
-  color: #ddd;
-  margin-top: 10px;
-  margin-bottom: 0;
-  
-  /* Estas tres líneas eliminan cualquier restricción de corte (ellipsis) */
-  white-space: normal;
-  overflow: visible;
+.project-card { 
+  position: relative; 
   display: block; 
+  text-decoration: none; 
+  border-radius: 15px; 
+  overflow: hidden; 
+  background-color: #050505; 
+  border: 1px solid rgba(255, 255, 255, 0.05); 
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5); 
+  transition: all 0.4s ease; 
+  height: 420px; 
+}
+.project-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(204, 0, 0, 0.3); border-color: rgba(204, 0, 0, 0.5); }
+
+/* CONTENEDOR DE IMAGEN AL 100% */
+.image-wrapper { 
+  position: absolute; 
+  top: 0; left: 0; 
+  width: 100%; 
+  height: 100%; 
+  z-index: 1; 
 }
 
-/* =========================================
-   EFECTO HOVER EN LAS TARJETAS
-   ========================================= */
-
-/* 1. La tarjeta principal se eleva suavemente sin cambiar su tamaño interno */
-.project-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+/* LA SOLUCIÓN DEFINITIVA: CUBRIR Y CENTRAR */
+.image-wrapper img { 
+  width: 100%; 
+  height: 100%; 
+  object-fit: cover; /* Llena toda la tarjeta sin dejar espacios vacíos */
+  object-position: center; /* Centra la imagen a la perfección (como lo notaste) */
+  display: block;
+  filter: grayscale(10%) brightness(0.85); 
+  transition: all 0.6s cubic-bezier(0.25, 0.8, 0.25, 1); 
 }
+.project-card:hover .image-wrapper img { filter: grayscale(0%) brightness(1); transform: scale(1.05); }
 
-/* 2. El overlay (fondo negro) oscurece un poco pero MANTIENE el mismo padding */
-.project-card:hover .project-overlay {
-  /* Forzamos a que el padding no cambie al pasar el cursor */
-  padding: 30px 25px 45px 25px !important;
+/* DEGRADADO TOTALMENTE IDÉNTICO A LA REFERENCIA */
+.project-overlay { 
+  position: absolute; 
+  top: 0; left: 0; 
+  width: 100%; 
+  height: 100%; 
+  padding: 2.5rem 2rem 2rem 2rem; 
   
-  background: linear-gradient(
-    to top, 
-    rgba(0,0,0, 0.98) 0%, 
-    rgba(0,0,0, 0.8) 70%, 
-    transparent 100%
-  );
+  /* Fundido suave: Empieza negro sólido abajo y sube dejando ver la foto */
+  background: linear-gradient(to top, rgba(5,5,5,1) 0%, rgba(5,5,5,0.85) 40%, rgba(5,5,5,0) 80%); 
+  
+  display: flex; 
+  flex-direction: column; 
+  justify-content: flex-end; 
+  box-sizing: border-box; 
+  z-index: 2; 
 }
 
-/* 3. Evitamos que el texto agregue márgenes fantasma al hacer hover */
-.project-card:hover .project-summary,
-.project-card:hover .project-name {
-  margin-bottom: 0 !important;
-  /* Si quieres que el texto haga un pequeño salto visual, usa transform: */
-  transform: translateY(-3px);
-  transition: transform 0.3s ease;
-}
-
-.project-card:hover img {
-  opacity: 1;
-  filter: grayscale(0%);
-  transform: scale(1.08); /* La imagen se acerca */
-}
-
-.project-card:hover .project-summary {
-  height: 40px; /* Expande para mostrar el resumen */
-  opacity: 1;
-  margin-top: 10px;
-}
+.project-category { color: $neon-orange; font-size: 0.75rem; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; }
+.project-name { color: $white; font-size: 2.2rem; font-family: 'Arial', sans-serif; margin: 0 0 10px 0; font-weight: bold; letter-spacing: 0px; }
+.project-summary { color: #d4d4d4; font-size: 0.95rem; line-height: 1.5; margin: 0; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 
 /* =========================================
-   MÓVIL
+   VISTA MÓVIL
    ========================================= */
 @media (max-width: 768px) {
-  .transmedia-container { padding: 2rem 1.5rem; }
-  .header { flex-direction: column; gap: 2rem; border-bottom: none; }
-  .nav-pill { display: none; } /* Puedes cambiarlo si tienes un menú hamburguesa */
+  .desktop-only { display: none !important; }
+  .mobile-only { display: flex !important; }
+
+  .transmedia-container { padding: 2rem 1.5rem !important; width: 100% !important; max-width: 100% !important; background: transparent !important; overflow: visible !important; }
+  .header { flex-direction: column !important; align-items: center !important; gap: 1.5rem !important; width: 100% !important; margin-bottom: 3.5rem !important; border-bottom: none !important; padding-bottom: 0 !important; background: transparent !important; }
   
-  .portfolio-title { font-size: 3rem; }
-  .portfolio-description { font-size: 1rem; }
+  .nav-pill { display: flex !important; flex-direction: column !important; align-items: center !important; gap: 1.2rem !important; width: 100% !important; }
+  .nav-pill a { font-size: 0.85rem !important; letter-spacing: 3px !important; }
+  .nav-pill a::before, .nav-pill a::after { display: none !important; }
+
+  .brand-title { font-size: 3.5rem !important; text-align: center !important; letter-spacing: 0 !important; }
+
+  .portfolio-header { margin-bottom: 2rem !important; padding: 0 10px !important; }
+  .portfolio-title { font-size: 2rem !important; line-height: 1.2 !important; word-wrap: break-word !important; letter-spacing: 0 !important; }
+  .portfolio-description { font-size: 0.95rem !important; line-height: 1.5 !important; }
   
-  .projects-grid { grid-template-columns: 1fr; }
-  .project-overlay { opacity: 1; transform: translateY(0); }
-  .project-summary { height: auto; opacity: 1; margin-top: 10px; }
-  .project-card img { opacity: 0.8; filter: grayscale(0%); }
+  .projects-grid { grid-template-columns: 1fr !important; gap: 2rem !important; }
+  
+  .project-card { height: 400px !important; }
+  
+  .project-overlay { padding: 2rem 1.5rem 1.5rem 1.5rem !important; background: linear-gradient(to top, rgba(5,5,5,1) 0%, rgba(5,5,5,0.9) 45%, rgba(5,5,5,0) 85%) !important; }
+  .project-name { font-size: 1.8rem !important; }
+  .project-summary { font-size: 0.9rem !important; -webkit-line-clamp: 4 !important; }
 }

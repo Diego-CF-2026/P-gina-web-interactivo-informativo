@@ -6,18 +6,20 @@ $gray: rgba(255, 255, 255, 0.6);
 $border-light: rgba(255, 255, 255, 0.15);
 $glow: 0 0 20px rgba(255, 255, 255, 0.5);
 $transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-$neon-orange: #cc0000; /* Rojo Klandestino */
+$neon-orange: #cc0000;
 
-/* ANIMACIÓN DE APARICIÓN */
+/* ANIMACIÓN DE APARICIÓN EXACTA DE 'HOME' */
 @keyframes pageReveal {
   0% { opacity: 0; filter: blur(5px); transform: scale(0.98); }
-  100% { opacity: 1; filter: blur(0); transform: scale(1); }
+  100% { opacity: 1; filter: none; transform: none; }
 }
 
-/* RESETEO DEL COMPONENTE */
-:host { display: block; width: 100%; min-height: 100vh; overflow-x: hidden; background: transparent !important; }
+@keyframes slideUpBounce { 
+  0% { opacity: 0; transform: translateY(30px); } 
+  100% { opacity: 1; transform: translateY(0); } 
+}
 
-/* (Los fondos .video-background y .overlay ahora viven en el styles.scss global) */
+:host { display: block; width: 100%; min-height: 100vh; overflow-x: hidden; background: transparent !important; }
 
 /* =========================================
    CONTENEDOR PRINCIPAL
@@ -26,7 +28,7 @@ $neon-orange: #cc0000; /* Rojo Klandestino */
   position: relative; 
   width: 100%; 
   max-width: 1400px; 
-  margin: 0 auto; /* Centrado para resoluciones ultrawide */
+  margin: 0 auto; 
   min-height: 100vh;
   padding: 3rem 5rem; 
   display: flex; 
@@ -34,91 +36,11 @@ $neon-orange: #cc0000; /* Rojo Klandestino */
   box-sizing: border-box; 
   z-index: 2; 
   background: transparent !important; 
+  
   animation: pageReveal 1.2s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
-}
-
-/* =========================================
-   CABECERA PC
-   ========================================= */
-.header { display: flex; justify-content: space-between; align-items: center; width: 100%; margin-bottom: 4rem; padding-bottom: 1.5rem; border-bottom: 1px solid $border-light; position: relative; z-index: 100; }
-.nav-pill { display: flex; gap: 2.5rem; pointer-events: auto; }
-.nav-pill a { color: $gray; text-decoration: none; font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; transition: $transition; position: relative; cursor: pointer; }
-.nav-pill a::before { content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); width: 1px; height: 16px; margin-top: 8px; background-color: transparent; transition: $transition; }
-.nav-pill a::after { content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); width: 5px; height: 5px; border-radius: 50%; margin-top: 24px; background-color: transparent; transition: $transition; }
-.nav-pill a:hover, .nav-pill a.active-link { color: $white; text-shadow: 0 0 10px rgba(255,255,255,0.5); }
-.nav-pill a:hover::before, .nav-pill a.active-link::before, .nav-pill a:hover::after, .nav-pill a.active-link::after { background-color: $white; }
-.nav-pill a.active-link::after { box-shadow: $glow; }
-
-/* =========================================
-   HERO PC (Alineado izquierda)
-   ========================================= */
-.hero { display: flex; flex-direction: column; align-items: flex-start; width: 100%; margin-top: 2rem; background: transparent !important; }
-.title { font-family: 'Cormorant Garamond', serif; font-size: 5rem; font-weight: 300; line-height: 1.1; color: $white; margin: 0 0 1.5rem 0; text-transform: uppercase; letter-spacing: 2px; }
-.description { color: $gray; max-width: 600px; line-height: 1.8; margin: 0; font-size: 1.05rem; }
-
-/* =========================================
-   GRILLA DE SERVICIOS
-   ========================================= */
-.services-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Adaptabilidad automática */
-  gap: 2rem;
-  margin-top: 5rem;
-  padding-bottom: 4rem; /* Espacio extra al final */
-  width: 100%;
-}
-
-.service-card {
-  background: rgba(15, 15, 15, 0.6);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 3rem 2rem;
-  border-radius: 12px;
-  transition: all 0.4s ease;
-  position: relative;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-
-  &:hover {
-    transform: translateY(-10px);
-    border-color: $neon-orange; /* Usando el Rojo Klandestino en el borde */
-    box-shadow: 0 15px 30px rgba(204, 0, 0, 0.15); /* Sombra Roja */
-    background: rgba(20, 20, 20, 0.9);
-  }
-}
-
-.service-number {
-  font-family: 'Impact', sans-serif;
-  font-size: 4rem;
-  color: rgba(255, 255, 255, 0.05); /* Muy sutil por defecto */
-  position: absolute;
-  top: -10px;
-  right: 10px;
-  transition: all 0.4s ease;
-}
-
-.service-card:hover .service-number {
-  color: rgba(204, 0, 0, 0.2); /* Se tiñe de rojo suave al pasar el mouse */
-  transform: scale(1.1);
-}
-
-.service-title {
-  color: $white;
-  font-size: 1.5rem;
-  margin-bottom: 1rem;
-  font-family: 'Cormorant Garamond', serif;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  font-weight: bold;
-}
-
-.service-desc {
-  color: $gray;
-  font-size: 0.95rem;
-  line-height: 1.6;
-  margin: 0;
-  position: relative; /* Asegura que el texto quede por encima del número gigante */
-  z-index: 2;
+  
+  /* AQUÍ ESTÁ LA MAGIA: El centro de expansión ahora es el centro de la pantalla visible, igual que en HOME */
+  transform-origin: center 40vh; 
 }
 
 /* CLASES DE VISIBILIDAD */
@@ -126,200 +48,105 @@ $neon-orange: #cc0000; /* Rojo Klandestino */
 .desktop-only { display: flex !important; }
 
 /* =========================================
-   VISTA MÓVIL (CORRECCIÓN DE TIPOGRAFÍA)
+   ESTILOS ESCRITORIO (PC)
+   ========================================= */
+.header { display: flex; justify-content: space-between; align-items: center; width: 100%; margin-bottom: 4rem; padding-bottom: 1.5rem; border-bottom: 1px solid $border-light; position: relative; z-index: 100; }
+
+/* =========================================
+   MENÚ DE NAVEGACIÓN
+   ========================================= */
+.nav-pill { display: flex; gap: 2.5rem; pointer-events: auto; }
+
+.nav-pill a { 
+  font-family: 'Arial', sans-serif !important; 
+  color: rgba(255, 255, 255, 0.6) !important; 
+  text-decoration: none !important; 
+  font-size: 0.8rem !important; 
+  font-weight: bold !important; 
+  letter-spacing: 2px !important; 
+  text-transform: uppercase !important; 
+  transition: all 0.4s ease; 
+  position: relative; 
+  cursor: pointer; 
+}
+
+.nav-pill a::before { content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); width: 1px; height: 16px; margin-top: 8px; background-color: transparent; transition: all 0.4s ease; }
+.nav-pill a::after { content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); width: 5px; height: 5px; border-radius: 50%; margin-top: 24px; background-color: transparent; transition: all 0.4s ease; }
+
+.nav-pill a:hover, .nav-pill a.active-link { color: #ffffff !important; text-shadow: 0 0 10px rgba(255,255,255,0.5); }
+.nav-pill a:hover::before, .nav-pill a.active-link::before, .nav-pill a:hover::after, .nav-pill a.active-link::after { background-color: #ffffff; }
+.nav-pill a.active-link::after { box-shadow: 0 0 20px rgba(255, 255, 255, 0.5); }
+
+/* =========================================
+   LOGO KLANDESTINO
+   ========================================= */
+.klandestino-brand { display: flex; flex-direction: column; align-items: center; text-decoration: none; cursor: pointer; transition: transform 0.3s ease; }
+.klandestino-brand:hover { transform: scale(1.05); }
+
+.brand-title {
+  font-family: 'Impact', 'Arial Black', sans-serif !important;
+  font-size: 2.2rem !important; 
+  font-weight: normal !important; 
+  color: #ffffff !important;
+  line-height: 0.9 !important;
+  margin: 0 !important;
+  text-transform: uppercase !important;
+  -webkit-font-smoothing: antialiased;
+}
+
+.brand-i { position: relative; display: inline-block; }
+.brand-i::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 26%; background-color: #cc0000; }
+.brand-sub { font-family: 'Arial', sans-serif !important; font-size: 0.85rem !important; color: #cc0000 !important; letter-spacing: 9px !important; margin-top: 2px !important; text-transform: uppercase !important; font-weight: 700 !important; margin-right: -9px !important; }
+
+/* =========================================
+   CONTENIDO DE SERVICES
+   ========================================= */
+.hero { display: flex; flex-direction: column; align-items: flex-start; width: 100%; margin-top: 2rem; background: transparent !important; }
+.title { font-family: 'Cormorant Garamond', serif; font-size: 5rem; font-weight: 300; line-height: 1.1; color: $white; margin: 0 0 1.5rem 0; text-transform: uppercase; letter-spacing: 2px; }
+.description { color: $gray; max-width: 600px; line-height: 1.8; margin: 0; font-size: 1.05rem; }
+
+.services-grid, .expertise-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; margin-top: 5rem; padding-bottom: 4rem; width: 100%; }
+
+.service-card, .expertise-card { background: rgba(15, 15, 15, 0.6); border: 1px solid rgba(255, 255, 255, 0.1); padding: 3rem 2rem; border-radius: 12px; transition: all 0.4s ease; position: relative; overflow: hidden; display: flex; flex-direction: column; }
+.service-card:hover, .expertise-card:hover { transform: translateY(-10px); border-color: $neon-orange; box-shadow: 0 15px 30px rgba(204, 0, 0, 0.15); background: rgba(20, 20, 20, 0.9); }
+.service-number, .expertise-number { font-family: 'Impact', sans-serif; font-size: 4rem; color: rgba(255, 255, 255, 0.05); position: absolute; top: -10px; right: 10px; transition: all 0.4s ease; }
+.service-card:hover .service-number, .expertise-card:hover .expertise-number { color: rgba(204, 0, 0, 0.2); transform: scale(1.1); }
+.service-title, .expertise-title { color: $white; font-size: 1.5rem; margin-bottom: 1rem; font-family: 'Cormorant Garamond', serif; text-transform: uppercase; letter-spacing: 1px; font-weight: bold; }
+.service-desc, .expertise-desc { color: $gray; font-size: 0.95rem; line-height: 1.6; margin: 0; position: relative; z-index: 2; }
+
+/* BOTÓN FLOTANTE WHATSAPP */
+.whatsapp-float { position: fixed; bottom: 40px; right: 40px; display: flex; align-items: center; gap: 15px; text-decoration: none; z-index: 9999; cursor: pointer; transition: all 0.3s ease; opacity: 0; transform: translateY(30px); animation: slideUpBounce 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) 1s forwards; }
+.whatsapp-float:hover { transform: translateY(-5px); .wa-icon { box-shadow: 0 10px 25px rgba(37, 211, 102, 0.5); } .wa-text { border-color: #25D366; } }
+.wa-text { background: rgba(15, 15, 15, 0.85); color: #ffffff; font-family: 'Arial', sans-serif; font-size: 0.9rem; padding: 10px 20px; border-radius: 30px; border: 1px solid rgba(255, 255, 255, 0.15); backdrop-filter: blur(8px); box-shadow: 0 5px 15px rgba(0,0,0,0.5); transition: all 0.3s ease; letter-spacing: 0.5px; }
+.wa-icon { width: 60px; height: 60px; background-color: #25D366; border-radius: 50%; display: flex; justify-content: center; align-items: center; box-shadow: 0 5px 15px rgba(0,0,0,0.5); transition: all 0.3s ease; animation: pulse-wa 2s infinite; svg { display: block; margin: 0; padding: 0; } }
+@keyframes pulse-wa { 0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.6); } 70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); } 100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); } }
+
+/* =========================================
+   VISTA MÓVIL
    ========================================= */
 @media (max-width: 768px) {
   .desktop-only { display: none !important; }
   .mobile-only { display: flex !important; }
-  
-  .transmedia-container { padding: 2rem 1.5rem !important; width: 100% !important; background: transparent !important; }
 
-  /* CABECERA MÓVIL */
-  .header { flex-direction: column !important; align-items: center !important; gap: 1.5rem !important; width: 100% !important; margin-bottom: 3.5rem !important; border-bottom: none !important; padding-bottom: 0 !important; }
-  .nav-pill { justify-content: center !important; gap: 1.5rem !important; flex-wrap: wrap !important; }
-  .nav-pill a { font-size: 0.75rem !important; }
-  .nav-pill a::before, .nav-pill a::after { display: none !important; } 
+  .transmedia-container { padding: 2rem 1.5rem !important; width: 100% !important; max-width: 100% !important; background: transparent !important; overflow: visible !important; }
+  .header { flex-direction: column !important; align-items: center !important; gap: 1.5rem !important; width: 100% !important; margin-bottom: 3.5rem !important; border-bottom: none !important; padding-bottom: 0 !important; background: transparent !important; }
+  
+  .nav-pill { display: flex !important; flex-direction: column !important; align-items: center !important; gap: 1.2rem !important; width: 100% !important; }
+  .nav-pill a { font-size: 0.85rem !important; letter-spacing: 3px !important; }
+  .nav-pill a::before, .nav-pill a::after { display: none !important; }
 
-  /* HERO MÓVIL */
-  .hero { align-items: center !important; text-align: center !important; gap: 1rem !important; }
-  
-  /* AJUSTE PARA TÍTULOS EN MÓVIL */
-  .title { 
-    font-size: clamp(2.2rem, 11vw, 3.2rem) !important; /* Tipografía fluida */
-    width: 100% !important; 
-    line-height: 1.1 !important; 
-    text-align: center !important; 
-    word-break: break-word !important; 
-  }
-  
+  .brand-title { font-size: 3.5rem !important; text-align: center !important; letter-spacing: 0 !important; }
+
+  .hero { flex-direction: column !important; align-items: center !important; text-align: center !important; width: 100% !important; gap: 2rem !important; background: transparent !important; }
+  .title { width: 100% !important; text-align: center !important; word-break: break-word !important; font-size: 2.2rem !important; word-wrap: break-word !important; line-height: 1.2 !important; hyphens: auto !important; }
   .description { text-align: center !important; font-size: 0.95rem !important; }
 
-  /* GRILLA A 1 COLUMNA EN MÓVIL */
-  .services-grid {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-    margin-top: 4rem;
-  }
+  .services-grid, .expertise-grid { display: flex !important; flex-direction: column !important; gap: 2rem !important; width: 100% !important; padding: 0 !important; }
+  .service-card, .expertise-card { width: 100% !important; max-width: 100% !important; margin: 0 !important; padding: 2.5rem 1.5rem !important; box-sizing: border-box !important; }
+  .service-card h3, .expertise-card h3, .service-title, .expertise-title { font-size: 1.8rem !important; line-height: 1.2 !important; word-wrap: break-word !important; margin-bottom: 1rem !important; }
+  .service-card p, .expertise-card p, .service-desc, .expertise-desc { font-size: 1rem !important; line-height: 1.6 !important; }
 
-  .service-card {
-    padding: 2.5rem 1.5rem; /* Ajuste sutil del padding para pantallas pequeñas */
-  }
-}
-
-/* =========================================
-   BOTÓN FLOTANTE WHATSAPP
-   ========================================= */
-.whatsapp-float {
-  position: fixed;
-  bottom: 40px;
-  right: 40px;
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  text-decoration: none;
-  z-index: 9999;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  
-  /* NUEVO: Animación de entrada suave con pequeño rebote */
-  opacity: 0;
-  transform: translateY(30px);
-  animation: slideUpBounce 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) 1s forwards;
-  
-  /* Efecto de elevación al pasar el mouse */
-  &:hover {
-    transform: translateY(-5px);
-    
-    .wa-icon {
-      box-shadow: 0 10px 25px rgba(37, 211, 102, 0.5);
-    }
-    .wa-text {
-      border-color: #25D366;
-    }
-  }
-}
-
-/* Keyframes para la aparición del botón completo */
-@keyframes slideUpBounce {
-  0% { 
-    opacity: 0; 
-    transform: translateY(30px); 
-  }
-  100% { 
-    opacity: 1; 
-    transform: translateY(0); 
-  }
-}
-
-.wa-text {
-  background: rgba(15, 15, 15, 0.85);
-  color: #ffffff;
-  font-family: 'Arial', sans-serif;
-  font-size: 0.9rem;
-  padding: 10px 20px;
-  border-radius: 30px;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(8px);
-  box-shadow: 0 5px 15px rgba(0,0,0,0.5);
-  transition: all 0.3s ease;
-  letter-spacing: 0.5px;
-}
-
-.wa-icon {
-  width: 60px;
-  height: 60px;
-  background-color: #25D366;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.5);
-  transition: all 0.3s ease;
-  
-  /* Latido continuo (se mantiene igual) */
-  animation: pulse-wa 2s infinite;
-
-  svg {
-    display: block;
-    margin: 0;
-    padding: 0;
-  }
-}
-
-@keyframes pulse-wa {
-  0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.6); }
-  70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
-}
-
-/* --- Adaptación para celulares --- */
-@media (max-width: 768px) {
-  .whatsapp-float {
-    bottom: 25px;
-    right: 25px;
-    gap: 10px;
-  }
-  .wa-icon {
-    width: 50px;
-    height: 50px;
-    
-    svg { width: 24px; height: 24px; }
-  }
-  .wa-text {
-    font-size: 0.75rem;
-    padding: 8px 15px;
-  }
-}
-
-/* =========================================
-   LOGO KLANDESTINO (GLOBAL)
-   ========================================= */
-.klandestino-brand {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-decoration: none; /* Evita que el enlace se subraye */
-  cursor: pointer;
-  transition: transform 0.3s ease;
-}
-
-.klandestino-brand:hover {
-  transform: scale(1.05);
-}
-
-.brand-title {
-  font-family: 'Impact', 'Arial Black', sans-serif;
-  font-size: 3.5rem; 
-  color: #ffffff;
-  letter-spacing: 1px;
-  line-height: 0.9;
-  margin: 0;
-  text-transform: uppercase;
-}
-
-.brand-i {
-  position: relative;
-  display: inline-block;
-}
-
-/* El truco mágico: Un cuadrado rojo perfecto sobre la parte alta de la "I" */
-.brand-i::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 26%;
-  background-color: #cc0000; /* Rojo Klandestino */
-}
-
-.brand-sub {
-  font-family: 'Arial', sans-serif;
-  font-size: 0.85rem;
-  color: #cc0000;
-  letter-spacing: 9px; 
-  margin-top: 2px;
-  text-transform: uppercase;
-  font-weight: 700;
-  margin-right: -9px; 
+  .whatsapp-float { bottom: 25px; right: 25px; gap: 10px; }
+  .wa-icon { width: 50px; height: 50px; svg { width: 24px; height: 24px; } }
+  .wa-text { font-size: 0.75rem; padding: 8px 15px; }
 }
